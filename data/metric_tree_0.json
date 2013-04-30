@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Business Transaction Performance",
+        "type": "folder"
+    },
+    {
+        "name": "Errors",
+        "type": "folder"
+    },
+    {
+        "name": "Information Points",
+        "type": "folder"
+    },
+    {
+        "name": "Backends",
+        "type": "folder"
+    },
+    {
+        "name": "Application Infrastructure Performance",
+        "type": "folder"
+    },
+    {
+        "name": "Overall Application Performance",
+        "type": "folder"
+    },
+    {
+        "name": "End User Monitoring",
+        "type": "folder"
+    }
+]

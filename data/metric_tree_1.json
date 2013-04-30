@@ -1,0 +1,1262 @@
+[
+    {
+        "name": "Average End to End Latency (ms)",
+        "type": "leaf"
+    },
+    {
+        "name": "Average Response Time (ms)",
+        "type": "leaf"
+    },
+    {
+        "name": "Calls per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "End to End Messages per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Error Page Redirects per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Errors per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Exceptions per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "HTTP Error Codes per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Infrastructure Errors per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Normal Average Response Time (ms)",
+        "type": "leaf"
+    },
+    {
+        "name": "Number of Slow Calls",
+        "type": "leaf"
+    },
+    {
+        "name": "Number of Slow End to End Messages",
+        "type": "leaf"
+    },
+    {
+        "name": "Number of Very Slow Calls",
+        "type": "leaf"
+    },
+    {
+        "name": "Stall Count",
+        "type": "leaf"
+    },
+    {
+        "name": "courseautogrouprest.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "assessments-api.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "OutboundSSO.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "ccng",
+        "type": "folder"
+    },
+    {
+        "name": "portaliws.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "TeacherDashboard.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "linkwizard.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "parentuseriws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "surveysiws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "PearsonSSOMetadata.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "CspiIws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "textmultimedia-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "psettings-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "threads-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "email.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "exam-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "scheduler.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "afsupport-api.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "utigradebook.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ccifilesystem.services.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursehome.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "webcontentupload-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "StudentDashboard.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursechecklist.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "linkwizard.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "announcements.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "courseautogroup.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "gradebook.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "synchronoustools.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "Machine Agent",
+        "type": "folder"
+    },
+    {
+        "name": "courseresourcemapping.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Campus-Messaging-Berlin.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "Duper.Service",
+        "type": "folder"
+    },
+    {
+        "name": "Campus.Services.ecollegeqa.net-Entity",
+        "type": "folder"
+    },
+    {
+        "name": "campusiws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "styles.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "msofficecontent.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "lomprovisioningiws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "Cognos.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "assessments-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "style-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "gradebookiws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "xmppchat.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "chat.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ph-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "courseadmin.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "itemanalysis.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "courselist-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "slp-api.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "useractivity.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ltirest.services.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "journal.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursecleanerws.services.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "TakeExam.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "sync.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "frameset.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "activityfeed-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LTIToolSettings.services.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "announcements-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "journal.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "ebookmessaging.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "Dashboard.AtRisk.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursesamlsso.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "icodeonsettings.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ScormPlayer-API.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "mathequationeditor.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "transferauthentication.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "EPConfiguration.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "help.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "docsharing.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Outcomes-API.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "availabilitydispatcher.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "atrisk.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "dropbox.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Lassi.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "idverification.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "scormcontent.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "blti.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "highstakesexams-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Outcomes-UI.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "CAReporting-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "announcements.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "dvgradebook-api.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "cspi.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "PENSTestHarness",
+        "type": "folder"
+    },
+    {
+        "name": "blti-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ContentBilling.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "cpdir",
+        "type": "folder"
+    },
+    {
+        "name": "he-course-admin",
+        "type": "folder"
+    },
+    {
+        "name": "catalog",
+        "type": "folder"
+    },
+    {
+        "name": "internalinterop-mapping-resources.ecollegeqa.net-v1.0",
+        "type": "folder"
+    },
+    {
+        "name": "internalinterop-course-resources.ecollegeqa.net-v1.0",
+        "type": "folder"
+    },
+    {
+        "name": "grades-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "utigradebook-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "exams.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "webliography-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "whatsnew-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "acxiom.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "resetcredentials.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "useractivity.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "utiprofessionalism-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "IDMService",
+        "type": "folder"
+    },
+    {
+        "name": "SB3",
+        "type": "folder"
+    },
+    {
+        "name": "coursesearchconfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "utiattendance-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Campus.Services.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "duperiws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "user-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "m-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "digitalvellum.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Gating.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "moauth-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "SB2_SOA",
+        "type": "folder"
+    },
+    {
+        "name": "managedcourse.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "dropbox.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "SIFIWS.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "Attendance.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "lomassessments.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LOMAssessors.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "lomassessments-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "gradebook.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "exambuilder.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "course-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "transferauthentication.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "courseenrollment-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "digitalvellum-api.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "articlefeeds-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "interruptResponse.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "dropbox-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "useragreement.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "syllabus-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "scheduler-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "m-stylesmanager.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "digitalvellum.next.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "OutboundSSO.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "SMS_REG",
+        "type": "folder"
+    },
+    {
+        "name": "SMS_RIS",
+        "type": "folder"
+    },
+    {
+        "name": "SMS_LOGIN",
+        "type": "folder"
+    },
+    {
+        "name": "dvscheduler-api.next.qaprod.ecollege.net",
+        "type": "folder"
+    },
+    {
+        "name": "SMS_TLS",
+        "type": "folder"
+    },
+    {
+        "name": "WhittakerService",
+        "type": "folder"
+    },
+    {
+        "name": "tpi_core",
+        "type": "folder"
+    },
+    {
+        "name": "upcomingevents-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "tpi_mgr",
+        "type": "folder"
+    },
+    {
+        "name": "Campus.Services.ecollegeqa.net-Tasks",
+        "type": "folder"
+    },
+    {
+        "name": "chat.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "ims.services.qaprod.ecollege.com-enterpriseservices",
+        "type": "folder"
+    },
+    {
+        "name": "OCBilling.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "Campus-API.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "lti.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "tempfiles-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "webliography.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "SB1",
+        "type": "folder"
+    },
+    {
+        "name": "TPI soa",
+        "type": "folder"
+    },
+    {
+        "name": "Campus.Services.ecollegeqa.net-Provisioning",
+        "type": "folder"
+    },
+    {
+        "name": "dvscheduler-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "CCBPMS",
+        "type": "folder"
+    },
+    {
+        "name": "LOMRestAuth.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ParentUser.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "FacultyDuper.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "portalxws.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursesamlsso.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "nextfileupload.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "msofficecontent.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "syllabus.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "TurnItInConfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "help.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "scheduleradmin.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "eLiveCallBack.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "CourseMetadata.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LearningStation.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Gating.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LTISettings.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "CourseCleaner.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "JeopardyTransferAuthentication.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "FacultyDuperConfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LTIDeploy.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "msofficedocument-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "filemanager-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "docsharing-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "application-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "usertracking-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "api.icodeon.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "internalmessaging-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "internalmessaging.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "docsharing.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "partnersettings.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "idverificationacxiom.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "lomgradedetail.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LTIPartnerPlatform.services.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ebookframework.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursehome.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "ebookframeworkapi.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "threadcontent.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "vizedhtmlcontent.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "mathequationeditor.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "ccicontentexchange.services.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "courseadmin.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "GradeDataExchange.Service",
+        "type": "folder"
+    },
+    {
+        "name": "courseholidays-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "utireports-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LOMRestApi.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "calendar.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "course-m-api-adapter.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "plsadmin.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "course-m-api-adapter.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "styles.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "campus.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "courseiws.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "PowerSpeakSsoMetadata.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "examscheduler.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "threadcontent.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LTIConfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "webliography.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursemigration.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "BCCTFileUpload.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "lom.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "he-frontend",
+        "type": "folder"
+    },
+    {
+        "name": "he-backend",
+        "type": "folder"
+    },
+    {
+        "name": "email.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "share.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "syllabus.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "platformstats.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "outboundssoconfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "scheduler.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "gating-api.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "coursepersona.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "examscheduler.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "managedcourse.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "toolmanagement.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "filemanager.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "CourseCopyFlagRemover.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "exambuilder.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "webuploadcontent.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "synchronoustools.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "messaging.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "HealthCheck Site",
+        "type": "folder"
+    },
+    {
+        "name": "lomconfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "duper.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ktwelvecontent.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Attendance.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "filemanager.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "gradebookfork.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "GatingConfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "classlive.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "InstructorInfoReport.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "powerschoolgradebook.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "CourseFeaturesManagement.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "TakeExam.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "vizedhtmlcontent.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "PATransferAuthentication.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "QTIExamUpload.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ImporterService.services.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "LegacyCourseFolderIWS.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "CourseExportIWS.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "nextgenscheduler.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "webuploadcontent.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "NextGenSchedulerRest.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "coursepersona.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "DynamicCourseData.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ContentPackager.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "activation.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursetoolconfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "cultureconfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LOMCourseRepository.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "Cheetah",
+        "type": "folder"
+    },
+    {
+        "name": "Horton",
+        "type": "folder"
+    },
+    {
+        "name": "utipsh.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LTIToolConsumer.services.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LTIRegistration.services.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "LOMCourseRepository.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "digitalvellum-api.next.ecollege.net",
+        "type": "folder"
+    },
+    {
+        "name": "classlive.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "courseproducer.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "searchreplace.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "searchreplace-api.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "configtester.next.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "dvgradebook-subscriber.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "TPI_Tomcat",
+        "type": "folder"
+    },
+    {
+        "name": "FederatedLogin.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "ebookmessaging.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "lsentry-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "attendancetracking-api.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "gbreviewdateconfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "mycourse-api.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "mycourse.qaprod.pearsonopenclass.com",
+        "type": "folder"
+    },
+    {
+        "name": "tpi_outcomes",
+        "type": "folder"
+    },
+    {
+        "name": "ebookframework.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "Campus-Ex.ecollegeqa.net",
+        "type": "folder"
+    },
+    {
+        "name": "outcomes-ui-monorail.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "mycourse-api.qaprod.pearsonopenclass.com",
+        "type": "folder"
+    },
+    {
+        "name": "mycourse-api.ecollege.net",
+        "type": "folder"
+    },
+    {
+        "name": "mycourse.pearsonopenclass.com",
+        "type": "folder"
+    },
+    {
+        "name": "campus-terms.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "campus-jobs.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "coursesearch.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "RolesAndRightsConsole.next.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "campus-users.qaprod.ecollege.com",
+        "type": "folder"
+    },
+    {
+        "name": "PLS-IDM",
+        "type": "folder"
+    },
+    {
+        "name": "coursechecklist.next.qaprod.ecollege.com-Common",
+        "type": "folder"
+    },
+    {
+        "name": "RolesAndRightsConfig.next.qaprod.ecollege.com",
+        "type": "folder"
+    }
+]

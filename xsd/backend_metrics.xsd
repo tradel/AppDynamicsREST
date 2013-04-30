@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="BackendResponseTimes" type="BackendResponseTimesType"/>
+    <xs:complexType name="BackendResponseTimesType">
+        <xs:sequence>
+            <xs:element type="BackendType" name="Backend" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="Controller"/>
+        <xs:attribute type="xs:dateTime" name="GenerationTime"/>
+    </xs:complexType>
+    <xs:simpleType name="empty">
+        <xs:restriction base="xs:string">
+            <xs:length value="0" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isoDate">
+        <xs:union memberTypes="xs:dateTime empty" />
+    </xs:simpleType>
+    <xs:complexType name="BackendType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="ApplicationName"/>
+            <xs:element type="xs:string" name="BackendName"/>
+            <xs:element type="xs:long" name="AverageResponseTime"/>
+            <xs:element type="xs:long" name="CallsPerMinute"/>
+            <xs:element type="xs:long" name="TotalCalls"/>
+            <xs:element type="xs:long" name="MaximumCallsPerMinute"/>
+            <xs:element type="isoDate" name="MaximumCallTime"/>
+            <xs:element type="xs:long" name="ErrorsPerMinute"/>
+            <xs:element type="xs:long" name="TotalErrors"/>
+            <xs:element type="xs:long" name="MaximumErrorsPerMinute"/>
+            <xs:element type="isoDate" nillable="true" name="MaximumErrorTime"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

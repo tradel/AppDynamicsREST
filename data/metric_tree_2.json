@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Average Response Time (ms)",
+        "type": "leaf"
+    },
+    {
+        "name": "Calls per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Error Page Redirects per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Errors per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Exceptions per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "HTTP Error Codes per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Infrastructure Errors per Minute",
+        "type": "leaf"
+    },
+    {
+        "name": "Number of Slow Calls",
+        "type": "leaf"
+    },
+    {
+        "name": "Number of Very Slow Calls",
+        "type": "leaf"
+    },
+    {
+        "name": "Stall Count",
+        "type": "leaf"
+    },
+    {
+        "name": "External Calls",
+        "type": "folder"
+    },
+    {
+        "name": "Thread Tasks",
+        "type": "folder"
+    },
+    {
+        "name": "Individual Nodes",
+        "type": "folder"
+    }
+]
