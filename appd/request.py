@@ -1,8 +1,8 @@
-__author__ = 'tradel'
+__author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 import sys
 import requests
-from .model import *
+from model import *
 
 class AppDynamicsClient(object):
 

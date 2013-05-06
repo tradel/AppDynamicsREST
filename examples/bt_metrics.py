@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python
 
 # BusinessTransaction.py
 #
@@ -22,15 +22,17 @@
 # python BTMetrics.py --controller=http://10.1.2.3:8090 --account=customer1 --username=demo --password=abc123
 
 
-from appd.cmdline import parse_argv
-from appd.request import AppDynamicsClient
 from collections import defaultdict
-from lxml.builder import ElementMaker
-from lxml import etree
-from lxml.etree import ProcessingInstruction
 from datetime import datetime
 from time import mktime
+
+from lxml.builder import ElementMaker
+from lxml import etree
 import tzlocal
+
+from appd.cmdline import parse_argv
+from appd.request import AppDynamicsClient
+
 
 
 # The report will generate data for the 24-hour period before midnight of the current day. To change the

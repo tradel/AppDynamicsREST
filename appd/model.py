@@ -220,7 +220,7 @@ class MetricData(JsonList):
     def by_path(self, path):
         return MetricData([x for x in self if x.path == path])
 
-    def first(self):
+    def first_value(self):
         return self[0].values[0].value
 
 

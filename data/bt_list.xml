@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<BusinessTransactions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Controller="http://beta01.saas.appdynamics.com/controller/rest" GenerationTime="2013-04-29T17:56:51.507360-04:00" xsi:noNamespaceSchemaLocation="../xsd/bt_metrics.xsd">
+<BusinessTransactions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Controller="http://beta01.saas.appdynamics.com/controller/rest" GenerationTime="2013-04-29T17:56:51.507360-04:00" xsi:noNamespaceSchemaLocation="../examples/xsd/bt_metrics.xsd">
     <BusinessTransaction>
         <ApplicationName>FieldConnectQual</ApplicationName>
         <BusinessTransactionName>/</BusinessTransactionName>

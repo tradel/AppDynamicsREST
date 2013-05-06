@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<BackendResponseTimes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Controller="http://deere.saas.appdynamics.com/controller/rest" GenerationTime="2013-04-29T18:15:50.252351-04:00" xsi:noNamespaceSchemaLocation="../xsd/backend_metrics.xsd">
+<BackendResponseTimes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Controller="http://deere.saas.appdynamics.com/controller/rest" GenerationTime="2013-04-29T18:15:50.252351-04:00" xsi:noNamespaceSchemaLocation="../examples/xsd/backend_metrics.xsd">
     <Backend>
         <ApplicationName>DeereCert</ApplicationName>
         <BackendName>Discovered backend call - AccountFlex_5_0</BackendName>
