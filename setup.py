@@ -4,11 +4,12 @@
 
 from distutils.core import setup
 
-setup(name='AppDRestAPI',
+setup(name='AppDynamicsREST',
       version='0.1.0',
       description='REST API client for AppDynamics Controllers',
       author='Todd Radel',
       author_email='tradel@appdynamics.com',
       url='http://www.appdynamics.com',
       packages=['appd'],
+      requires=['requests']
       )

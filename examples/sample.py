@@ -5,9 +5,10 @@ from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
 
 args = parse_argv()
-
 c = AppDynamicsClient(args.url, args.username, args.password, args.account, args.verbose)
 for app in c.get_applications():
+    print app.name, app.id
+
     metric_data = c.get_metrics('Overall Application Performance|*', app_id=app.id)
     art = metric_data.by_leaf_name(c.AVERAGE_RESPONSE_TIME).first_value()
     cpm = metric_data.by_leaf_name(c.CALLS_PER_MINUTE).first_value()
