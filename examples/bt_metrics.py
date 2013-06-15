@@ -34,14 +34,13 @@ from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
 
 
-
 # The report will generate data for the 24-hour period before midnight of the current day. To change the
 # reporting period, adjust these variables.
 
 time_in_mins = 1440
 end_time = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 end_epoch = int(mktime(end_time.timetuple())) * 1000
-1
+
 
 # Helper functions
 
