@@ -101,17 +101,19 @@ for app in c.get_applications():
         # Get the last two components of the metric path. This should be 'backend_name|metric_name'.
         backend_name, metric_name = md.path.split('|')[-2:]
 
-        metric_sum = sum([x.value for x in md.values])
-        metric_total = metric_sum * freq_to_mins(md)
-        metric_average = 0
-        max_point = (0, None)
-        if len(md.values) > 0:
-            metric_average = metric_sum / len(md.values)
-            max_point = max([(max(x.value, x.current, x.max), x.start_time) for x in md.values])
+        if 'Discovered backend call' in backend_name:
+            backend_name = backend_name[26:]
+            metric_sum = sum([x.value for x in md.values])
+            metric_total = metric_sum * freq_to_mins(md)
+            metric_average = 0
+            max_point = (0, None)
+            if len(md.values) > 0:
+                metric_average = metric_sum / len(md.values)
+                max_point = max([(max(x.value, x.current, x.max), x.start_time) for x in md.values])
 
-        func = METRIC_DISPATCHER[metric_name]
-        func(rows[backend_name], metric_total, metric_average, metric_sum, max_point)
-        rows[backend_name]['app'] = app.name
+            func = METRIC_DISPATCHER[metric_name]
+            func(rows[backend_name], metric_total, metric_average, metric_sum, max_point)
+            rows[backend_name]['app'] = app.name
 
 
 # Generate the report.

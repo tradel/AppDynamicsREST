@@ -1,0 +1,61 @@
+<h1 id="appdynamics-rest-client-for-python">AppDynamics REST Client For Python</h1>
+<h2 id="purpose">Purpose</h2>
+<p><a href="http://www.appdynamics.com">AppDynamics</a> provides a REST interface from which you can pull lots of useful data from your controller: metrics like average response time and calls per minute, as well as metadata like a list of all the detected business transactions. Mostly this involves making repeated HTTP calls to the controller, then parsing the results as XML or JSON.</p>
+<p>I set out to create a simple Python library to hide most of the grunt work and complexity.</p>
+<p>By the way, this works with both on-premise and SaaS controllers.</p>
+<h2 id="usage">Usage</h2>
+<p>Here's an example showing how easy it is to use.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> appd.cmdline <span class="ch">import</span> parse_argv
+<span class="ch">from</span> appd.request <span class="ch">import</span> AppDynamicsClient
+
+args = parse_argv()
+c = AppDynamicsClient(args.url, args.username, args.password, args.account, args.verbose)
+<span class="kw">for</span> app in c.get_applications():
+    <span class="kw">print</span> app.name, app.<span class="dt">id</span></code></pre>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This package requires a couple of other modules:</p>
+<ul>
+<li><a href="https://pypi.python.org/pypi/tzlocal">tzlocal</a></li>
+<li><a href="https://pypi.python.org/pypi/requests">requests</a></li>
+<li><a href="https://pypi.python.org/pypi/lxml">lxml</a></li>
+</ul>
+<p>If you use the setup script documented in the next section, you don't need to install these yourself. The script will check for the prerequisites and install them if they are missing.</p>
+<h2 id="installation">Installation</h2>
+<p>The package includes the standard python <code>setup.py</code>, so you can install it with a simple command:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">python</span> setup.py install</code></pre>
+<h2 id="examples">Examples</h2>
+<p>The package includes a couple of scripts that demonstrate what you can do with the REST API:</p>
+<ul>
+<li><strong>sample.py</strong> - retrieves a list of applications from the controller, then overall application metrics and prints them out.</li>
+<li><strong>license_report_to_csv.py</strong> - generates a CSV report of licenses in use by license type (Java, .NET, PHP, and machine-agent-only) which can be imported into Excel.</li>
+<li><strong>bt_metrics.py</strong> - generates an XML report of metrics by business transaction, similar to the standard data in the Business Transactions dashboard. There is an associated XML schema in <code>xsd/bt_metrics.xsd</code>.</li>
+<li><strong>backend_metrics.py</strong> - generates an XML report of metrics for each discovered backend. There is an associated XML schema in <code>xsd/backend_metrics.xsd</code>.</li>
+</ul>
+<p>To run the scripts, you need to pass the controller URL, username, and password on the command line. If you are on a multi-tenant controller or hosted on SaaS, you will also need to pass an account name. Here's an example:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">python</span> examples/bt_metrics.py --url http://appdyn-prod.local:8090 --username user1 --password welcome</code></pre>
+<p>For the full list of command line options supported, see the next section.</p>
+<h2 id="command-line-options">Command Line Options</h2>
+<p>This package includes a module called <code>appd.cmdline</code> that provides a simple command-line parser for use in your scripts. You're not required to use it, but it allows you to point your script at different controllers without making any code changes. It supports the following options:</p>
+<ul>
+<li><strong>-c</strong> or <strong>--url</strong> for the controller URL. Required.</li>
+<li><strong>-a</strong> or <strong>--account</strong> for the account name. Optional and defaults to &quot;customer1&quot;, which is the account name on single-tenant controllers.</li>
+<li><strong>-u</strong> or <strong>--username</strong> for the user name. Required.</li>
+<li><strong>-p</strong> or <strong>--password</strong> for the password. Required.</li>
+<li><strong>-v</strong> or <strong>--verbose</strong> will print out the URLs before they are retrieved.</li>
+<li><strong>-h</strong> or <strong>--help</strong> will display a summary of the command line options.</li>
+</ul>
+<p>The example scripts all use the parser, so you can look at their source to see how to use it.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>I get errors like <code>ImportError: No module named appd.cmdline</code> when I try to run the examples scripts.</strong></p>
+<p>You'll see this if you try to run the example scripts before installing the package into your Python <code>site-packages</code> folder. Either follow the installation instructions above, or set the <code>PYTHONPATH</code> environment variable before running the script, like this:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">PYTHONPATH=</span>. <span class="kw">python</span> examples/bt_metrics.py</code></pre>
+<p><strong>I can't seem to get the authentication right. I keep getting <code>HTTPError: 401 Client Error: Unauthorized</code>.</strong></p>
+<p>Use the same username, password, and account you use when you log into your controller. If your login screen only has two fields in it (username and password), then you can omit the account.</p>
+<h2 id="to-do">To Do</h2>
+<ul>
+<li>[ ] TODO: Add support for POST requests (mark node historical, code deployment event, etc.)</li>
+</ul>
+<h2 id="references">References</h2>
+<ol style="list-style-type: decimal">
+<li><a href="http://docs.appdynamics.com/display/PRO12S/Use+the+AppDynamics+REST+API">AppDynamics REST API</a> page in the official documentation.</li>
+</ol>
