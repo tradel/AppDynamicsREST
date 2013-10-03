@@ -1,0 +1,56 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Controller Audit Report</title>
+</head>
+<body style="font-size: 12px; margin: 0; background-color: #fff; font-family: Arial, Helvetica, sans-serif; padding: 0; color: #58595b; height: 100%; width: 100%;" bgcolor="#e2e2e2">
+    <a href="http://www.appdynamics.com" style="color: #38B4E7; text-decoration: none;"><img src="http://info.appdynamics.com/rs/appdynamics/images/ad_logo-email.png" height="44" width="195" alt="AppDynamics, Inc." border="0"></a>
+
+    <div>
+        <h1 style="margin: 10px 0; font-weight: bold; font-size: 16px; line-height: 100%; font-family: Arial, Helvetica, sans-serif; color: #58595B; display: block; text-align: left;" align="left">Controller Audit Report</h1>
+    </div>
+    <div>
+        <p style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #58595B;">
+            Generated for account <b>{{ args.account }}</b> on controller <b>{{ args.host }}</b>,
+            {% if args.days == 1 %}
+                for <b>{{ start_time.strftime('%A, %d %b %Y') }}</b>.</p>
+            {% else %}
+                for <b>{{ args.days }}</b> days prior to <b>{{ end_time.strftime('%A, %d %b %Y') }}</b>.
+            {%  endif %}
+
+        <table style="width: 100%;">
+            <thead><tr style="font-size: 12px; color: #58595B; font-family: Arial, Helvetica, sans-serif;">
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Date/Time</th>
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Account</th>
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Security Provider</th>
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Username</th>
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Application</th>
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Action</th>
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Object Type</th>
+                <th style="margin-bottom: 4px; font-size: 11px; background-color: rgb(29, 151, 222); padding: 2px; line-height: 15px; font-family: Arial, Helvetica, sans-serif; color: #fff; height: 15px; text-align: left;" bgcolor="rgb(29, 151, 222)" align="left">Object Name</th>
+            </tr></thead>
+            <tbody>
+            {% for row in cur %}
+                {% set action_name = ACTIONS.get(row['action'], row['action']) %}
+                {% set table_data = AUDIT_TABLES.get(row['object_name'], dict()) %}
+                {% set display_name = table_data.get('display_name', row['object_name'] or '') %}
+                <tr style="font-size: 12px; color: #58595B; font-family: Arial, Helvetica, sans-serif;">
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }}; height: 13px; text-align: left;" align="left">{{ from_ts(row['ts_ms']) }}</td>
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }};height: 13px; text-align: left;" align="left">{{ row['account_name'] }}</td>
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }};height: 13px; text-align: left;" align="left">{{ row['user_security_provider_type'] }}</td>
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }};height: 13px; text-align: left;" align="left">{{ row['user_name'] }}</td>
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }};height: 13px; text-align: left;" align="left">{{ row['application_name'] or '' }}</td>
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }};height: 13px; text-align: left;" align="left">{{ action_name }}</td>
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }};height: 13px; text-align: left;" align="left">{{ display_name }}</td>
+                    <td style="font-size: 11px; line-height: 13px; font-family: Arial, Helvetica, sans-serif; color: #58595B; background-color: {{ loop.cycle('#fff', '#eee') }};height: 13px; text-align: left;" align="left">{{ row['object_desc'] or '' }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #58595B;">
+            If you have any questions, please contact our <a style="text-decoration: none; color: #38B4E7;" href="mailto:ops@appdynamics.com">Ops team</a>.
+        </p>
+    </div>
+<div style="margin: auto auto 100px; background-color: #464646; padding: 0 50px; height: 10px; width: 100%;"></div>
+</body>
+</html>

@@ -111,10 +111,10 @@ for app in c.get_applications():
                 metric_average = metric_sum / len(md.values)
                 max_point = max([(max(x.value, x.current, x.max), x.start_time) for x in md.values])
 
-            func = METRIC_DISPATCHER[metric_name]
-            func(rows[backend_name], metric_total, metric_average, metric_sum, max_point)
-            rows[backend_name]['app'] = app.name
-
+            func = METRIC_DISPATCHER.get(metric_name, None)
+            if func:
+                func(rows[backend_name], metric_total, metric_average, metric_sum, max_point)
+                rows[backend_name]['app'] = app.name
 
 # Generate the report.
 
@@ -125,20 +125,21 @@ root = E.BackendResponseTimes(Controller=c.base_url, GenerationTime=now_rfc3339(
 root.set('{%s}noNamespaceSchemaLocation' % XSI, 'backend_metrics.xsd')
 
 for k, v in sorted(rows.items()):
+    v.setdefault('cpm_max_time', '')
+    v.setdefault('epm_max_time', '')
     root.append(E.Backend(
         E.ApplicationName(v['app']),
         E.BackendName(k),
-        E.AverageResponseTime(str(v['art'])),
-        E.CallsPerMinute(str(v['cpm_average'])),
-        E.TotalCalls(str(v['total_calls'])),
-        E.MaximumCallsPerMinute(str(v['cpm_max'])),
+        E.AverageResponseTime(str(v.get('art', 0))),
+        E.CallsPerMinute(str(v.get('cpm_average', 0))),
+        E.TotalCalls(str(v.get('total_calls', 0))),
+        E.MaximumCallsPerMinute(str(v.get('cpm_max', 0))),
         E.MaximumCallTime(v['cpm_max_time'].isoformat('T') if v['cpm_max_time'] else ''),
-        E.ErrorsPerMinute(str(v['epm_avg'])),
-        E.TotalErrors(str(v['total_errors'])),
-        E.MaximumErrorsPerMinute(str(v['epm_max'])),
+        E.ErrorsPerMinute(str(v.get('epm_avg', 0))),
+        E.TotalErrors(str(v.get('total_errors', 0))),
+        E.MaximumErrorsPerMinute(str(v.get('epm_max', 0))),
         E.MaximumErrorTime(v['epm_max_time'].isoformat('T') if v['epm_max_time'] else ''),
     ))
-
 
 # Print the report to stdout.
 

@@ -3,4 +3,5 @@ dist
 *.pyc
 MANIFEST
 *.egg-info
-
+.idea
+temp.*

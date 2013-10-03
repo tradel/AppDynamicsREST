@@ -1,4 +1,10 @@
-# AppDynamics REST Client For Python
+Title:       Python SDK for AppDynamics REST API
+Author:      Todd Radel  
+Affiliation: AppDynamics Inc.
+Email:       tradel@appdynamics.com  
+Date:        26 August 2013  
+
+# Python SDK for AppDynamics REST API
 
 ## Purpose
 
@@ -9,23 +15,24 @@ repeated HTTP calls to the controller, then parsing the results as XML or JSON.
 
 I set out to create a simple Python library to hide most of the grunt work and complexity.
 
-By the way, this works with both on-premise and SaaS controllers.
+This library works with both on-premise and SaaS controllers.
 
 
 ## Usage
 
-Here's an example showing how easy it is to use.
+Here's a simple example. It retrieves a list of business applications from the controller
+and prints them out. It uses a helper class `appd.cmdline` to let you supply the controller
+URL, username, password, and account on the command line.
 
-```python
+``` python
 from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
 
 args = parse_argv()
 c = AppDynamicsClient(args.url, args.username, args.password, args.account, args.verbose)
 for app in c.get_applications():
-    print app.name, app.id
+	print app.name, app.id
 ```
-
 
 ## Prerequisites
 
@@ -43,7 +50,7 @@ The script will check for the prerequisites and install them if they are missing
 
 The package includes the standard python `setup.py`, so you can install it with a simple command:
 
-```bash
+``` bash
 python setup.py install
 ```
 
@@ -63,7 +70,7 @@ The package includes a couple of scripts that demonstrate what you can do with t
 To run the scripts, you need to pass the controller URL, username, and password on the command line. If you are on
 a multi-tenant controller or hosted on SaaS, you will also need to pass an account name. Here's an example:
 
-```bash
+``` bash
 python examples/bt_metrics.py --url http://appdyn-prod.local:8090 --username user1 --password welcome
 ```
 
@@ -74,7 +81,8 @@ For the full list of command line options supported, see the next section.
 
 This package includes a module called `appd.cmdline` that provides a simple command-line parser for use
 in your scripts. You're not required to use it, but it allows you to point your script at different controllers
-without making any code changes. It supports the following options:
+without making any code changes, and if you use it consistently, your scripts will all have a common
+command-line syntax, which is nice. It supports the following options:
 
 - **-c** or **--url** for the controller URL. Required.
 - **-a** or **--account** for the account name. Optional and defaults to "customer1", which is the account
@@ -95,7 +103,7 @@ You'll see this if you try to run the example scripts before installing the pack
 folder. Either follow the installation instructions above, or set the `PYTHONPATH` environment variable before
 running the script, like this:
 
-```bash
+``` bash
 PYTHONPATH=. python examples/bt_metrics.py
 ```
 

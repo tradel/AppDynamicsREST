@@ -85,17 +85,18 @@ for app in c.get_applications():
 
         # Get the last 3 components of the metric path. This should be 'tier_name|bt_name|metric_name'.
         tier_name, bt_name, metric_name = md.path.split('|')[-3:]
-        bt = bt_list.by_tier_and_name(bt_name, tier_name)[0]
-
-        if len(md.values) > 0 and METRIC_MAP.has_key(metric_name):
-            key = (tier_name, bt_name)
-            rows.setdefault(key, empty_row.copy()).update({'app_id': app.id,
-                                                           'app_name': app.name,
-                                                           'bt_id': bt.id,
-                                                           'bt_name': bt.name,
-                                                           'tier_name': bt.tier_name,
-                                                           'type': bt.type,
-                                                           METRIC_MAP[metric_name]: md.values[0].value})
+        tier_bts = bt_list.by_tier_and_name(bt_name, tier_name)
+        if tier_bts:
+            bt = tier_bts[0]
+            if len(md.values) > 0 and METRIC_MAP.has_key(metric_name):
+                key = (tier_name, bt_name)
+                rows.setdefault(key, empty_row.copy()).update({'app_id': app.id,
+                                                               'app_name': app.name,
+                                                               'bt_id': bt.id,
+                                                               'bt_name': bt.name,
+                                                               'tier_name': bt.tier_name,
+                                                               'type': bt.type,
+                                                               METRIC_MAP[metric_name]: md.values[0].value})
 
 
 # Generate the report.
