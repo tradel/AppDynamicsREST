@@ -47,6 +47,8 @@ def parse_argv():
                         action='append',
                         default=['system', 'singularity-agent'],
                         help='Users to filter from audit log (default: %(default)s)')
+    parser.add_argument('-L', '--ignore-logins', dest='ignore_logins', action='store_true',
+                        help='Ignore successful logins')
     parser.add_argument('-o' '--output', dest='outfile',
                         help='Send HTML output to a file instead of SMTP server')
     parser.add_argument('-f', '--from', dest='sender', default='ops@appdynamics.com',
@@ -284,7 +286,7 @@ def insert_logins(cur, params):
            NULL AS display_name
             FROM controller_audit ca
             WHERE LOWER(ca.account_name) = LOWER('$acct')
-              AND ca.object_name IS NULL
+              AND ca.action IN ($login_types)
               AND ca.user_name NOT IN ($users_to_ignore)
               AND ca.ts_ms BETWEEN $start_ts AND $end_ts
             ORDER BY ca.ts_ms)
@@ -315,13 +317,17 @@ def generate_output(args, params):
 def populate_params(args):
     end_time = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     start_time = end_time + timedelta(-args.days)
+    login_types = ['LOGIN_FAILED']
+    if not args.ignore_logins:
+        login_types.append('LOGIN')
     return {
         'end_time': end_time,
         'start_time': start_time,
         'start_ts': to_ts(start_time),
         'end_ts': to_ts(end_time),
         'acct': args.account,
-        'users_to_ignore': ', '.join(["'" + x + "'" for x in args.ignore_users])
+        'users_to_ignore': ', '.join(["'" + x + "'" for x in args.ignore_users]),
+        'login_types': ', '.join(["'" + x + "'" for x in login_types])
     }
 
 
