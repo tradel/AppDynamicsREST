@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 
 """
-Sample script to generate a count of licenses used by environment type (Prod, Devl, Qual, Cert, etc.)
+Sample script to generate a count of licenses used by app name, regardless of environment type
+(Prod, Devl, Qual, Cert, etc.)
 
 .. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
