@@ -123,7 +123,7 @@ class AppDynamicsClient(object):
     def app_id(self, new_app_id):
         self._app_id = new_app_id
 
-       def request(self, path, params=None, method='GET', json=True):
+    def request(self, path, params=None, method='GET', json=True):
         if not path.startswith('/'):
             path = '/' + path
         url = self._base_url + path
@@ -134,18 +134,17 @@ class AppDynamicsClient(object):
         for k in params.keys():
             if params[k] is None:
                 del params[k]
-                
+
         if self.debug:
             print 'Retrieving ' + url, self._auth, params
-            
+
         r = requests.request(method ,url, auth=self._auth, params=params)
-        
+
         if r.status_code != requests.codes.ok:
             print >> sys.stderr, url
             r.raise_for_status()
-        if(json):
-            return r.json()
-        return r.text
+
+        return r.json() if json else r.text
 
     def _app_path(self, app_id, path=None):
         id = app_id if isinstance(app_id, int) else self._app_id
@@ -169,9 +168,9 @@ class AppDynamicsClient(object):
         parent = None
         if metric_path:
             parent = MetricTreeNode(parent=None, node_name=metric_path, node_type='folder')
-        return self.__get_metric_tree(app_id, parent=parent, recurse=recurse)
+        return self._get_metric_tree(app_id, parent=parent, recurse=recurse)
 
-    def __get_metric_tree(self, app_id=None, parent=None, recurse=False):
+    def _get_metric_tree(self, app_id=None, parent=None, recurse=False):
         params = {}
         if parent:
             params['metric-path'] = parent.path
@@ -180,7 +179,7 @@ class AppDynamicsClient(object):
         if recurse:
             for node in nodes:
                 if node.type == 'folder':
-                    self.__get_metric_tree(app_id, parent=node, recurse=True)
+                    self._get_metric_tree(app_id, parent=node, recurse=True)
         return nodes
 
     # Top-level requests
