@@ -9,5 +9,5 @@ import request
 import cmdline
 import time
 
-__VERSION__ = '0.3.0-dev'
+__VERSION__ = '0.4.0-dev'
 __author__ = 'Todd Radel <tradel@appdynamics.com>'
