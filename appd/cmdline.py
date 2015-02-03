@@ -1,14 +1,34 @@
-__author__ = 'tradel'
+"""
+Command line parsing for REST API scripts.
+
+.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
+"""
+
+__author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 import argparse
 
 
-def parse_argv():
-    parser = argparse.ArgumentParser(description='Gets a count of licenses in use from an AppDynamics controller.')
-    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='Enable verbose output')
-    parser.add_argument('-c', '--url', dest='url', help='set the controller URL', required=True)
-    parser.add_argument('-u', '--username', dest='username', help='set the username for authentication', required=True)
-    parser.add_argument('-p', '--password', dest='password', help='set the password for authentication', required=True)
+def parse_argv(app_desc=None):
+    """
+    Provides a parser for a standard set of command line options.
+
+    Use of this function is optional but highly encouraged, as it allows all scripts based on the SDK to be
+    invoked in a familiar way.
+
+    :returns: a Namespace full of parsed arguments
+    :rtype: argparse.Namespace
+    """
+
+    parser = argparse.ArgumentParser(description=app_desc)
+    parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
+                        help='Enable verbose output')
+    parser.add_argument('-c', '--url', dest='url', required=True,
+                        help='set the controller URL')
+    parser.add_argument('-u', '--username', dest='username', required=True,
+                        help='set the username for authentication')
+    parser.add_argument('-p', '--password', dest='password', required=True,
+                        help='set the password for authentication')
     parser.add_argument('-a', '--account', default='customer1', dest='account',
                         help='set the controller account (default: customer1)')
     return parser.parse_args()
