@@ -10,7 +10,7 @@ if os.path.exists('docs/appsphere.rst'):
     long_description = open('docs/appsphere.rst').read()
 
 setup(name='AppDynamicsREST',
-      version='0.3.0-dev',
+      version='0.4.0-dev',
       description='Python SDK for AppDynamics REST API',
       author='Todd Radel',
       author_email='tradel@appdynamics.com',

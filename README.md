@@ -6,7 +6,8 @@ Date:        26 August 2013
 
 # Python SDK for AppDynamics REST API
 
-Current version: 0.3.0-dev
+Current version: **unreleased**
+**v0.4.0-dev**
 
 ## Purpose
 
