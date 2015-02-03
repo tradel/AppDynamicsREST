@@ -98,26 +98,29 @@ class AppDynamicsClient(object):
     def app_id(self, new_app_id):
         self._app_id = new_app_id
 
-    def request(self, path, params=None):
+       def request(self, path, params=None, method='GET', json=True):
         if not path.startswith('/'):
             path = '/' + path
         url = self._base_url + path
 
         params = params or {}
-        params['output'] = 'JSON'
+        if json:
+            params['output'] = 'JSON'
         for k in params.keys():
             if params[k] is None:
                 del params[k]
-
+                
         if self.debug:
             print 'Retrieving ' + url, self._auth, params
-
-        r = requests.get(url, auth=self._auth, params=params)
-
+            
+        r = requests.request(method ,url, auth=self._auth, params=params)
+        
         if r.status_code != requests.codes.ok:
             print >>sys.stderr, url
             r.raise_for_status()
-        return r.json()
+        if(json):
+            return r.json()
+        return r.text
 
     def _app_path(self, app_id, path=None):
         id = app_id if isinstance(app_id, int) else self._app_id
