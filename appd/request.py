@@ -211,17 +211,18 @@ class AppDynamicsClient(object):
         path = self._app_path(app_id, path)
         return cls.from_json(self.request(path, params))
 
-    def get_bt_list(self, app_id=None):
+    def get_bt_list(self, app_id=None, excluded=False):
         """
         Get the list of all registered business transactions in an application.
 
         :param int app_id: Application ID to retrieve the BT list for. If :const:`None`, the value stored in the
           `app_id` property will be used.
+        :param bool excluded: If True, the function will return BT's that have been excluded in the AppDynamics
+          UI. If False, the function will return all BT's that have not been excluded. The default is False.
         :returns: The list of registered business transactions.
         :rtype: :class:`BusinessTransactions <appd.model.BusinessTransactions>`
         """
-
-        return self._app_request(BusinessTransactions, '/business-transactions', app_id)
+        return self._app_request(BusinessTransactions, '/business-transactions', app_id, {'exclude': excluded})
 
     def get_tiers(self, app_id=None):
         """
@@ -232,7 +233,6 @@ class AppDynamicsClient(object):
         :return: A :class:`Tiers <appd.model.Tiers>` object, representing a collection of tiers.
         :rtype: :class:`Tiers <appd.model.Tiers>`
         """
-
         return self._app_request(Tiers, '/tiers', app_id)
 
     def get_nodes(self, app_id=None, tier_id=None):
