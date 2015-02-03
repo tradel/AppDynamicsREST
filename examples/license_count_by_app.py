@@ -48,10 +48,10 @@ for machine_id, nodes_on_machine_iter in itertools.groupby(nodes, key=group_func
     app_name = first_node.app.name
 
     all_same = all(x.group_type == agent_type for x in nodes_on_machine)
-    assert all_same, first_node
+    # assert all_same, first_node
 
     all_same = all(x.app.name == app_name for x in nodes_on_machine)
-    assert all_same, first_node
+    # assert all_same, first_node
 
     license_count = 1
     if 'Java' in agent_type:
