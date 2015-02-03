@@ -252,6 +252,16 @@ class AppDynamicsClient(object):
 
     def _validate_time_range(self, time_range_type, duration_in_mins, start_time, end_time):
 
+        """
+        Validates the combination of parameters used to specify a time range in AppDynamics.
+
+        :param str time_range_type: type of time range to search
+        :param int duration_in_mins: duration to search, in minutes
+        :param long start_time: starting time
+        :param long end_time: ending time
+        :returns: parameters to be sent to controller
+        :rtype: dict
+        """
         if time_range_type and not time_range_type in self.TIME_RANGE_TYPES:
             raise ValueError('time_range_time must be one of: ' + ', '.join(self.TIME_RANGE_TYPES))
 
@@ -321,7 +331,7 @@ class AppDynamicsClient(object):
         :param long end_time: End time, expressed in milliseconds since epoch. Only valid if the
             :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
         :param kwargs: Additional key/value pairs to pass to the controller as search parameters.
-        :return: A list of snapshots.
+        :returns: A list of snapshots.
         :rtype: :class:`Snapshots <appd.model.Snapshots>`
         """
 
@@ -380,7 +390,7 @@ class AppDynamicsClient(object):
         :param long end_time: End time, expressed in milliseconds since epoch. Only valid if the
             :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
         :returns: A list of policy violations.
-        :rtype: :class:`PolicyViolations <appd.model.PolicyViolations>`
+        :rtype: appd.model.PolicyViolations
         """
 
         params = self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
