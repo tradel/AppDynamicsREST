@@ -113,11 +113,6 @@ Use the same username, password, and account you use when you log into your cont
 only has two fields in it (username and password), then you can omit the account.
 
 
-## To Do
-
-- [ ] TODO: Add support for POST requests (mark node historical, code deployment event, etc.)
-
-
 ## References
 
 1. [AppDynamics REST API](http://docs.appdynamics.com/display/PRO12S/Use+the+AppDynamics+REST+API)
