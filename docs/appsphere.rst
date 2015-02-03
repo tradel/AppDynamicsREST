@@ -1,5 +1,5 @@
-AppDynamics REST Client For Python
-==================================
+Python SDK for AppDynamics REST API
+===================================
 
 Purpose
 -------
@@ -14,12 +14,15 @@ the results as XML or JSON.
 I set out to create a simple Python library to hide most of the grunt
 work and complexity.
 
-By the way, this works with both on-premise and SaaS controllers.
+This library works with both on-premise and SaaS controllers.
 
 Usage
 -----
 
-Here's an example showing how easy it is to use.
+Here's a simple example. It retrieves a list of business applications
+from the controller and prints them out. It uses a helper class
+``appd.cmdline`` to let you supply the controller URL, username,
+password, and account on the command line.
 
 .. code:: python
 
@@ -91,19 +94,18 @@ Command Line Options
 This package includes a module called ``appd.cmdline`` that provides a
 simple command-line parser for use in your scripts. You're not required
 to use it, but it allows you to point your script at different
-controllers without making any code changes. It supports the following
-options:
+controllers without making any code changes, and if you use it
+consistently, your scripts will all have a common command-line syntax,
+which is nice. It supports the following options:
 
--  **-c** or **--url** for the controller URL. Required.
--  **-a** or **--account** for the account name. Optional and defaults
-   to "customer1", which is the account name on single-tenant
-   controllers.
--  **-u** or **--username** for the user name. Required.
--  **-p** or **--password** for the password. Required.
--  **-v** or **--verbose** will print out the URLs before they are
-   retrieved.
--  **-h** or **--help** will display a summary of the command line
-   options.
+-c, --url       Controller URL. **Required.**
+-a, --account   Account name. Optional and defaults
+                to "customer1", which is the account name on single-tenant
+                controllers.
+-u, --username  User name. **Required.**
+-p, --password  Password. **Required.**
+-v, --verbose   Print out the URLs before they are retrieved.
+-h, --help      Display a summary of the command line options.
 
 The example scripts all use the parser, so you can look at their source
 to see how to use it.
@@ -111,7 +113,7 @@ to see how to use it.
 FAQ
 ---
 
-**I get errors like ``ImportError: No module named appd.cmdline`` when I
+**I get errors like "ImportError: No module named appd.cmdline" when I
 try to run the examples scripts.**
 
 You'll see this if you try to run the example scripts before installing
@@ -124,7 +126,7 @@ variable before running the script, like this:
     PYTHONPATH=. python examples/bt_metrics.py
 
 **I can't seem to get the authentication right. I keep getting
-``HTTPError: 401 Client Error: Unauthorized``.**
+"HTTPError: 401 Client Error: Unauthorized".**
 
 Use the same username, password, and account you use when you log into
 your controller. If your login screen only has two fields in it
