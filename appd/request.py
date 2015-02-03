@@ -1,3 +1,10 @@
+"""
+This module contains the main classes for handling requests to the AppDynamics REST API.
+
+.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
+"""
+
+__docformat__ = 'reStructuredText'
 __author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 import sys
@@ -6,6 +13,10 @@ from model import *
 
 
 class AppDynamicsClient(object):
+    """
+    Main class that wraps around the REST API to make it easier to send requests
+    and parse responses.
+    """
 
     TIME_RANGE_TYPES = ('BEFORE_NOW', 'BEFORE_TIME', 'AFTER_TIME', 'BETWEEN_TIMES')
 
@@ -40,9 +51,23 @@ class AppDynamicsClient(object):
     EXCEPTIONS_PER_MINUTE = 'Exceptions per Minute'
     STALLS = 'Stall Count'
 
-
     def __init__(self, base_url='http://localhost:8090', username='user1', password='welcome',
                  account='customer1', debug=False):
+        """
+        Creates a new instance of the client.
+
+        :param base_url: URL of your controller.
+        :type base_url: str.
+        :param username: User name to authenticate to the controller with.
+        :type username: str.
+        :param password: Password for authentication to the controller.
+        :type password: str.
+        :param account: Account name for multi-tenant controllers. For single-tenant controllers, use
+                        the default value of "customer1".
+        :param debug: Set to :const:`True` to print extra debugging information to :const:`sys.stdout`.
+        :type debug: bool.
+        """
+
         self._username, self._password, self._account, self._app_id = '', '', '', None
         (self.base_url, self.username, self.password, self.account, self.debug) = (base_url, username, password,
                                                                                    account, debug)
@@ -61,7 +86,7 @@ class AppDynamicsClient(object):
         self._base_url += '/controller/rest'
 
     def __make_auth(self):
-        self._auth = (self._username+'@'+self._account, self._password)
+        self._auth = (self._username + '@' + self._account, self._password)
 
     @property
     def username(self):
@@ -116,7 +141,7 @@ class AppDynamicsClient(object):
         r = requests.request(method ,url, auth=self._auth, params=params)
         
         if r.status_code != requests.codes.ok:
-            print >>sys.stderr, url
+            print >> sys.stderr, url
             r.raise_for_status()
         if(json):
             return r.json()
@@ -130,6 +155,17 @@ class AppDynamicsClient(object):
         return path
 
     def get_metric_tree(self, app_id=None, metric_path=None, recurse=False):
+        """
+        Retrieves a list of available metrics.
+
+        :param int app_id: Application ID to retrieve metrics for. If :const:`None`, the value stored in the
+          `app_id` property will be used.
+        :param str metric_path: Point in the metric tree at which you want to retrieve the available metrics.
+          If :const:`None`, start at the root.
+        :param bool recurse: If :const:`True`, retrieve the entire tree from :data:`metric_path` on down.
+        :returns: An object containing the metrics under this point in the tree.
+        :rtype: :class:`appd.model.MetricTreeNodes`
+        """
         parent = None
         if metric_path:
             parent = MetricTreeNode(parent=None, node_name=metric_path, node_type='folder')
@@ -153,9 +189,21 @@ class AppDynamicsClient(object):
         return cls.from_json(self.request(path))
 
     def get_config(self):
+        """
+        Retrieve the controller configuration.
+
+        :returns: Configuration variables.
+        :rtype: :class:`ConfigVariables <appd.model.ConfigVariables>`
+        """
         return self._top_request(ConfigVariables, '/configuration')
 
     def get_applications(self):
+        """
+        Get a list of all business applications.
+
+        :returns: List of applications visible to the user.
+        :rtype: :class:`Applications <appd.model.Applications>`
+        """
         return self._top_request(Applications, '/applications')
 
     # Application-level requests
@@ -165,15 +213,41 @@ class AppDynamicsClient(object):
         return cls.from_json(self.request(path, params))
 
     def get_bt_list(self, app_id=None):
+        """
+        Get the list of all registered business transactions in an application.
+
+        :param int app_id: Application ID to retrieve the BT list for. If :const:`None`, the value stored in the
+          `app_id` property will be used.
+        :returns: The list of registered business transactions.
+        :rtype: :class:`BusinessTransactions <appd.model.BusinessTransactions>`
+        """
+
         return self._app_request(BusinessTransactions, '/business-transactions', app_id)
 
     def get_tiers(self, app_id=None):
+        """
+        Get the list of all configured tiers in an application.
+
+        :param int app_id: Application ID to retrieve tiers for. If :const:`None`, the value stored in the
+          `app_id` property will be used.
+        :return: A :class:`Tiers <appd.model.Tiers>` object, representing a collection of tiers.
+        :rtype: :class:`Tiers <appd.model.Tiers>`
+        """
+
         return self._app_request(Tiers, '/tiers', app_id)
 
     def get_nodes(self, app_id=None, tier_id=None):
         """
-        Returns the list of nodes in the application, optionally filtered by tier.
+        Retrieves the list of nodes in the application, optionally filtered by tier.
+
+        :param int app_id: Application ID to retrieve nodes for. If :const:`None`, the value stored in the
+          `app_id` property will be used.
+        :param int tier_id: If set, retrieve only the nodes belonging to the specified tier. If :const:`None`,
+          retrieve all nodes in the application.
+        :return: A :class:`Nodes <appd.model.Nodes>` object, representing a collection of nodes.
+        :rtype: :class:`Nodes <appd.model.Nodes>`
         """
+
         path = ('/tiers/%s/nodes' % tier_id) if tier_id else '/nodes'
         return self._app_request(Nodes, path, app_id)
 
@@ -201,6 +275,27 @@ class AppDynamicsClient(object):
 
     def get_metrics(self, metric_path, app_id=None, time_range_type='BEFORE_NOW',
                     duration_in_mins=15, start_time=None, end_time=None, rollup=True):
+        """
+        Retrieves metric data.
+
+        :param str metric_path: Full metric path of the metric(s) to be retrieved. Wildcards are supported.
+            See :ref:`metric-paths` for details.
+        :param int app_id: Application ID to retrieve nodes for. If :const:`None`, the value stored in the
+            `app_id` property will be used.
+        :param str time_range_type: Must be one of :const:`BEFORE_NOW`, :const:`BEFORE_TIME`,
+            :const:`AFTER_TIME`, or :const:`BETWEEN_TIMES`.
+            See :ref:`time-range-types` for a full explanation.
+        :param int duration_in_mins: Number of minutes before now. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_NOW`.
+        :param long start_time: Start time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`AFTER_TIME` or :const:`BETWEEN_TIMES`.
+        :param long end_time: End time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
+        :param bool rollup: If :const:`False`, return individual data points for each time slice in
+            the given time range. If :const:`True`, aggregates the data and returns a single data point.
+        :returns: A list of metric values.
+        :rtype: :class:`MetricData <appd.model.MetricData>`
+        """
 
         params = self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
         params.update({'metric-path': metric_path,
@@ -210,6 +305,26 @@ class AppDynamicsClient(object):
 
     def get_snapshots(self, app_id=None, time_range_type=None, duration_in_mins=None,
                       start_time=None, end_time=None, **kwargs):
+        """
+        Finds and returns any snapshots in the given time range that match a set of criteria. You must provide
+        at least one condition to the search parameters in the :data:`kwargs` parameters. The list of valid
+        conditions can be found `here <http://appd.ws/2>`_.
+
+        :param int app_id: Application ID to retrieve nodes for. If :const:`None`, the value stored in the
+            `app_id` property will be used.
+        :param str time_range_type: Must be one of :const:`BEFORE_NOW`, :const:`BEFORE_TIME`,
+            :const:`AFTER_TIME`, or :const:`BETWEEN_TIMES`.
+            See :ref:`time-range-types` for a full explanation.
+        :param int duration_in_mins: Number of minutes before now. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_NOW`.
+        :param long start_time: Start time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`AFTER_TIME` or :const:`BETWEEN_TIMES`.
+        :param long end_time: End time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
+        :param kwargs: Additional key/value pairs to pass to the controller as search parameters.
+        :return: A list of snapshots.
+        :rtype: :class:`Snapshots <appd.model.Snapshots>`
+        """
 
         self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
 
@@ -225,8 +340,51 @@ class AppDynamicsClient(object):
 
     def get_policy_violations(self, app_id=None, time_range_type='BEFORE_NOW', duration_in_mins=15,
                               start_time=None, end_time=None):
+        """
+        Retrieves a list of policy violations during the specified time range.
+        *NOTE:* Beginning with controller version 3.7, you should use :meth:`get_healthrule_violations` instead.
+
+        :param int app_id: Application ID to retrieve nodes for. If :const:`None`, the value stored in the
+            `app_id` property will be used.
+        :param str time_range_type: Must be one of :const:`BEFORE_NOW`, :const:`BEFORE_TIME`,
+            :const:`AFTER_TIME`, or :const:`BETWEEN_TIMES`.
+            See :ref:`time-range-types` for a full explanation.
+        :param int duration_in_mins: Number of minutes before now. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_NOW`.
+        :param long start_time: Start time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`AFTER_TIME` or :const:`BETWEEN_TIMES`.
+        :param long end_time: End time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
+        :returns: A list of policy violations.
+        :rtype: :class:`PolicyViolations <appd.model.PolicyViolations>`
+        """
 
         params = self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
 
         return self._app_request(PolicyViolations, '/problems/policy-violations', app_id, params)
+
+    def get_healthrule_violations(self, app_id=None, time_range_type='BEFORE_NOW', duration_in_mins=15,
+                                  start_time=None, end_time=None):
+        """
+        Retrieves a list of health rule violations during the specified time range. Compatible with
+        controller version 3.7 and later.
+
+        :param int app_id: Application ID to retrieve nodes for. If :const:`None`, the value stored in the
+            `app_id` property will be used.
+        :param str time_range_type: Must be one of :const:`BEFORE_NOW`, :const:`BEFORE_TIME`,
+            :const:`AFTER_TIME`, or :const:`BETWEEN_TIMES`.
+            See :ref:`time-range-types` for a full explanation.
+        :param int duration_in_mins: Number of minutes before now. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_NOW`.
+        :param long start_time: Start time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`AFTER_TIME` or :const:`BETWEEN_TIMES`.
+        :param long end_time: End time, expressed in milliseconds since epoch. Only valid if the
+            :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
+        :returns: A list of policy violations.
+        :rtype: :class:`PolicyViolations <appd.model.PolicyViolations>`
+        """
+
+        params = self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
+
+        return self._app_request(PolicyViolations, '/problems/healthrule-violations', app_id, params)
 
