@@ -5,18 +5,19 @@ __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013 AppDynamics Inc.'
 __version__ = '0.1.0'
 
+from string import Template
+from datetime import datetime, timedelta
+from time import mktime
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import argparse
+import smtplib
+import sys
 
 import MySQLdb
 from MySQLdb.cursors import DictCursor
-from string import Template
-from datetime import datetime, timedelta
 from jinja2 import Environment, FileSystemLoader
-from time import mktime
-import argparse
-import sys
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+
 
 def parse_argv():
     parser = argparse.ArgumentParser(add_help=False, usage='%(prog)s [options]',
@@ -45,15 +46,17 @@ def parse_argv():
                         help='Number of days to report prior to today (default: %(default)d)')
     parser.add_argument('-i', '--ignore-user', dest='ignore_users',
                         action='append',
-                        default=['system', 'singularity-agent'],
+                        default=['system', 'singularity-agent', 'ldapsync'],
                         help='Users to filter from audit log (default: %(default)s)')
     parser.add_argument('-L', '--ignore-logins', dest='ignore_logins', action='store_true',
                         help='Ignore successful logins')
     parser.add_argument('-o' '--output', dest='outfile',
                         help='Send HTML output to a file instead of SMTP server')
-    parser.add_argument('-f', '--from', dest='sender', default='ops@appdynamics.com',
+    parser.add_argument('-f', '--from', dest='sender', default='help@appdynamics.com',
                         help='From address in email message (default: %(default)s)')
-    parser.add_argument('-t', '--to', dest='to', default='tradel@appdynamics.com',
+    parser.add_argument('-t', '--to', dest='to',
+                        action='append',
+                        default=['tradel@appdynamics.com'],
                         help='To address in email message (default: %(default)s)')
     parser.add_argument('-s', '--subject', dest='subject', default='Controller Audit Report',
                         help='Subject of email message (default: "%(default)s")')
@@ -72,6 +75,7 @@ def from_ts(ms):
 
 def to_ts(dt):
     return long(mktime(dt.timetuple())) * 1000
+
 
 ACTIONS = {
     'APP_ALERTS_CONFIGURATION': 'View Alerts',
@@ -171,7 +175,7 @@ AUDIT_TABLES = {
                                  'display_name': 'SQL Data Collector Config'},
     'TRANSACTION_MATCH_POINT_CONFIG': {'display_name': 'Transaction Detection Config'},
     'USER': {'display_name': 'User'},
-    }
+}
 
 ENTITY_TYPES = {'APPLICATION': {'display_name': 'Application',
                                 'app_name_expr': 't.name',
@@ -185,6 +189,7 @@ def connect(args):
                            cursorclass=DictCursor)
     cur = conn.cursor()
     return conn, cur
+
 
 def create_temp_table(cur):
     try:
@@ -207,7 +212,7 @@ def create_temp_table(cur):
         """
         cur.execute(sql)
     except:
-        print >>sys.stderr, "*** ERROR creating temporary table"
+        print >> sys.stderr, "*** ERROR creating temporary table"
         raise
 
 
@@ -221,7 +226,7 @@ def insert_object_crud(cur, params):
                 'app_name_expr': table_data.get('app_name_expr', 'NULL'),
                 'app_id_expr': table_data.get('app_id_expr', 'NULL'),
                 'join_to': table_data.get('join_to', table_name),
-                })
+            })
 
             sql = """
             INSERT INTO audit_report
@@ -242,7 +247,7 @@ def insert_object_crud(cur, params):
             sql = Template(sql).substitute(params)
             cur.execute(sql)
     except:
-        print >>sys.stderr, "*** ERROR EXECUTING SQL: ", sql
+        print >> sys.stderr, "*** ERROR EXECUTING SQL: ", sql
         raise
 
 
@@ -254,7 +259,7 @@ def insert_agent_configuration_crud(cur, params):
                 'app_name_expr': entity_data.get('app_name_expr', 'NULL'),
                 'app_id_expr': entity_data.get('app_id_expr', 'NULL'),
                 'display_name': entity_data.get('display_name', entity_type)
-                })
+            })
             sql = """
         INSERT INTO audit_report
         (SELECT ca.ts_ms, ca.account_name, ca.account_id, ca.user_name, ca.user_security_provider_type,
@@ -273,7 +278,7 @@ def insert_agent_configuration_crud(cur, params):
             sql = Template(sql).substitute(params)
             cur.execute(sql)
     except:
-        print >>sys.stderr, "*** ERROR EXECUTING SQL: ", sql
+        print >> sys.stderr, "*** ERROR EXECUTING SQL: ", sql
         raise
 
 
@@ -294,7 +299,7 @@ def insert_logins(cur, params):
         sql = Template(sql).substitute(params)
         cur.execute(sql)
     except:
-        print >>sys.stderr, "*** ERROR EXECUTING SQL: ", sql
+        print >> sys.stderr, "*** ERROR EXECUTING SQL: ", sql
         raise
 
 
@@ -335,14 +340,16 @@ def send_html_email(args, html):
     msg = MIMEMultipart('alternative')
     msg['Subject'] = args.subject
     msg['From'] = args.sender
-    msg['To'] = args.to
+    msg['To'] = ', '.join(args.to)
 
     part1 = MIMEText('Please use an HTML email client to view this message.', 'plain')
-    part2 = MIMEText(html, 'html')
+    part2 = MIMEText(html, 'html', 'utf-8')
     msg.attach(part1)
     msg.attach(part2)
 
     s = smtplib.SMTP(args.smtphost)
+    if args.verbose:
+        s.set_debuglevel(1)
     s.sendmail(args.sender, args.to, msg.as_string())
     s.close()
 
