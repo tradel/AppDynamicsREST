@@ -250,6 +250,17 @@ class AppDynamicsClient(object):
         path = ('/tiers/%s/nodes' % tier_id) if tier_id else '/nodes'
         return self._app_request(Nodes, path, app_id)
 
+    def get_node(self, node_id, app_id=None):
+        """
+        Retrieves details about a single node.
+
+        :param node_id: ID or name of the node to retrieve.
+        :param app_id: Application ID to search for the node.
+        :return: A single Node object.
+        :rtype: appd.model.Node
+        """
+        return self._app_request(Node, '/nodes/%s' % node_id, app_id)
+
     def _validate_time_range(self, time_range_type, duration_in_mins, start_time, end_time):
 
         """
