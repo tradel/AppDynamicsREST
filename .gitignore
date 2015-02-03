@@ -1,10 +1,10 @@
-build 
-dist
-tmp
+build/
+dist/
+tmp/
 *.pyc
 MANIFEST
 *.egg-info
 .idea
 *.iml
 temp.*
-docs/_build
+docs/_build/
