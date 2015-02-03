@@ -1,9 +1,15 @@
+"""
+Model classes for AppDynamics REST API
+
+.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
+"""
+
 __author__ = 'Todd Radel'
 
 
 from UserList import UserList
 from string import Template
-from datetime import datetime
+from .time import from_ts
 
 def _filter_func(obj, pred):
     def func():
@@ -30,9 +36,6 @@ class JsonObject(object):
         return Template("<$cls: $lrepr>").substitute(cls=self.__class__.__name__, lrepr=lrepr)
 
     __repr__ = __str__
-
-    def _mktime_ms(self, ms):
-        return datetime.fromtimestamp(ms / 1000)
 
     def _list_setter(self, attr_name, new_val, allowed_vals):
         if new_val and (new_val not in allowed_vals):
@@ -63,6 +66,22 @@ class JsonList(UserList):
 
 
 class Application(JsonObject):
+    """
+    Represents a business application. The following attributes are defined:
+
+    .. data:: id
+
+        Numeric ID of the application.
+
+    .. data:: name
+
+        Application name.
+
+    .. data:: description
+
+        Optional description of the application.
+    """
+
     FIELDS = {'id': '', 'name': '', 'description': ''}
 
     def __init__(self, app_id=0, name=None, description=None):
@@ -70,8 +89,20 @@ class Application(JsonObject):
 
 
 class Applications(JsonList):
+    """
+    Represents a collection of :class:`Application` objects. Extends :class:`UserList`, so it supports the
+    standard array index and :keyword:`for` semantics.
+    """
+
     def __init__(self, initial_list=None):
         super(Applications, self).__init__(Application, initial_list)
+
+    def by_name(self, n):
+        found = [x for x in self.data if x.name == n]
+        try:
+            return found[0]
+        except IndexError:
+            raise KeyError(n)
 
 
 class BusinessTransaction(JsonObject):
@@ -173,7 +204,7 @@ class MetricValue(JsonObject):
 
     @property
     def start_time(self):
-        return self._mktime_ms(self.start_time_ms)
+        return from_ts(self.start_time_ms)
 
 
 class MetricValues(JsonList):
@@ -257,11 +288,11 @@ class Snapshot(JsonObject):
 
     @property
     def local_start_time(self):
-        return datetime.fromtimestamp(self.local_start_time_ms / 1000)
+        return from_ts(self.local_start_time_ms)
 
     @property
     def server_start_time(self):
-        return datetime.fromtimestamp(self.server_start_time_ms / 1000)
+        return from_ts(self.server_start_time_ms)
 
 
 class Snapshots(JsonList):
@@ -270,6 +301,31 @@ class Snapshots(JsonList):
 
 
 class ConfigVariable(JsonObject):
+    """
+    Represents a controller configuration variable. The following attributes are defined:
+
+    .. data:: name
+
+       Variable name.
+
+    .. data:: value
+
+      Current value.
+
+    .. data:: description
+
+      Optional description of the variable.
+
+    .. data:: updateable
+
+      If :const:`True`, value can be changed.
+
+    .. data:: scope
+
+      Scope of the variable. The scope can be ``'cluster'`` or ``'local'``. Variables with cluster scope are
+      replicated across HA controllers; local variables are not.
+    """
+
     FIELDS = {
         'name': '',
         'description': '',
@@ -284,6 +340,11 @@ class ConfigVariable(JsonObject):
 
 
 class ConfigVariables(JsonList):
+    """
+    Represents a collection of :class:`ConfigVariable` objects. Extends :class:`UserList`, so it supports the
+    standard array index and :keyword:`for` semantics.
+    """
+
     def __init__(self, initial_list=None):
         super(ConfigVariables, self).__init__(ConfigVariable, initial_list)
 
@@ -409,15 +470,15 @@ class PolicyViolation(JsonObject):
 
     @property
     def start_time(self):
-        return self._mktime_ms(self.start_time_ms)
+        return from_ts(self.start_time_ms)
 
     @property
     def end_time(self):
-        return self._mktime_ms(self.end_time_ms)
+        return from_ts(self.end_time_ms)
 
     @property
     def detected_time(self):
-        return self._mktime_ms(self.detected_time_ms)
+        return from_ts(self.detected_time_ms)
 
 
 class Event(JsonObject):
