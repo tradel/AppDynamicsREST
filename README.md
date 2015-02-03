@@ -6,6 +6,8 @@ Date:        26 August 2013
 
 # Python SDK for AppDynamics REST API
 
+Current version: 0.3.0-dev
+
 ## Purpose
 
 [AppDynamics](http://www.appdynamics.com) provides a REST interface from which you can pull lots 
