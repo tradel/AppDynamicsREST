@@ -20,6 +20,7 @@ for app in c.get_applications():
     for node in c.get_nodes(app.id):
         # node_type = node.type
         # print node.id, node.machine_id, node.machine_name, node.type
+        # print node.type, node.os_type, node.app_agent_version
         if node.has_machine_agent or node.has_app_agent:
             if node.has_app_agent:
                 if 'PHP' in node.type:
@@ -46,10 +47,10 @@ for machine_id, nodes_on_machine_iter in itertools.groupby(nodes, key=group_func
     nodes_on_machine = list(nodes_on_machine_iter)
     first_node = nodes_on_machine[0]
     agent_type = first_node.group_type
-    types = [x.group_type for x in nodes_on_machine]
-    all_same = all(x.group_type == agent_type for x in nodes_on_machine)
+    # types = [x.group_type for x in nodes_on_machine]
+    # all_same = all(x.group_type == agent_type for x in nodes_on_machine)
     # print all_same, types
-    assert all_same, first_node
+    # assert all_same, first_node
 
     license_count = 1
     if 'Java' in agent_type:
@@ -70,8 +71,8 @@ header_fmt = '%-30s %-15s %-15s %s'
 data_fmt = '%-30s %15d %15d %15d'
 
 print
-print 'License usage report for ', args.url
-print 'Generated at: ', datetime.now()
+print 'License usage report for ' + args.url
+print 'Generated at: ' + str(datetime.now())
 print
 print header_fmt % ('Node Type', 'Node Count', 'Host Count', 'License Count')
 print header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15)
