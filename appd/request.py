@@ -69,6 +69,7 @@ class AppDynamicsClient(object):
         """
 
         self._username, self._password, self._account, self._app_id = '', '', '', None
+        self._base_url = ''
         (self.base_url, self.username, self.password, self.account, self.debug) = (base_url, username, password,
                                                                                    account, debug)
 
@@ -138,7 +139,7 @@ class AppDynamicsClient(object):
         if self.debug:
             print 'Retrieving ' + url, self._auth, params
 
-        r = requests.request(method ,url, auth=self._auth, params=params)
+        r = requests.request(method, url, auth=self._auth, params=params)
 
         if r.status_code != requests.codes.ok:
             print >> sys.stderr, url
@@ -147,10 +148,10 @@ class AppDynamicsClient(object):
         return r.json() if json else r.text
 
     def _app_path(self, app_id, path=None):
-        id = app_id if isinstance(app_id, int) else self._app_id
-        if not id:
+        app_id = app_id if isinstance(app_id, int) else self._app_id
+        if not app_id:
             raise ValueError('application id is required')
-        path = '/applications/%s' % id + (path or '')
+        path = '/applications/%s' % app_id + (path or '')
         return path
 
     def get_metric_tree(self, app_id=None, metric_path=None, recurse=False):
@@ -163,7 +164,7 @@ class AppDynamicsClient(object):
           If :const:`None`, start at the root.
         :param bool recurse: If :const:`True`, retrieve the entire tree from :data:`metric_path` on down.
         :returns: An object containing the metrics under this point in the tree.
-        :rtype: :class:`appd.model.MetricTreeNodes`
+        :rtype: appd.model.MetricTreeNodes
         """
         parent = None
         if metric_path:
@@ -192,7 +193,7 @@ class AppDynamicsClient(object):
         Retrieve the controller configuration.
 
         :returns: Configuration variables.
-        :rtype: :class:`ConfigVariables <appd.model.ConfigVariables>`
+        :rtype: appd.model.ConfigVariables
         """
         return self._top_request(ConfigVariables, '/configuration')
 
@@ -201,7 +202,7 @@ class AppDynamicsClient(object):
         Get a list of all business applications.
 
         :returns: List of applications visible to the user.
-        :rtype: :class:`Applications <appd.model.Applications>`
+        :rtype: appd.model.Applications
         """
         return self._top_request(Applications, '/applications')
 
@@ -220,7 +221,7 @@ class AppDynamicsClient(object):
         :param bool excluded: If True, the function will return BT's that have been excluded in the AppDynamics
           UI. If False, the function will return all BT's that have not been excluded. The default is False.
         :returns: The list of registered business transactions.
-        :rtype: :class:`BusinessTransactions <appd.model.BusinessTransactions>`
+        :rtype: appd.model.BusinessTransactions
         """
         return self._app_request(BusinessTransactions, '/business-transactions', app_id, {'exclude': excluded})
 
@@ -231,7 +232,7 @@ class AppDynamicsClient(object):
         :param int app_id: Application ID to retrieve tiers for. If :const:`None`, the value stored in the
           `app_id` property will be used.
         :return: A :class:`Tiers <appd.model.Tiers>` object, representing a collection of tiers.
-        :rtype: :class:`Tiers <appd.model.Tiers>`
+        :rtype: appd.model.Tiers
         """
         return self._app_request(Tiers, '/tiers', app_id)
 
@@ -244,7 +245,7 @@ class AppDynamicsClient(object):
         :param int tier_id: If set, retrieve only the nodes belonging to the specified tier. If :const:`None`,
           retrieve all nodes in the application.
         :return: A :class:`Nodes <appd.model.Nodes>` object, representing a collection of nodes.
-        :rtype: :class:`Nodes <appd.model.Nodes>`
+        :rtype: appd.model.Nodes
         """
 
         path = ('/tiers/%s/nodes' % tier_id) if tier_id else '/nodes'
@@ -314,7 +315,7 @@ class AppDynamicsClient(object):
         :param bool rollup: If :const:`False`, return individual data points for each time slice in
             the given time range. If :const:`True`, aggregates the data and returns a single data point.
         :returns: A list of metric values.
-        :rtype: :class:`MetricData <appd.model.MetricData>`
+        :rtype: appd.model.MetricData
         """
 
         params = self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
@@ -343,7 +344,7 @@ class AppDynamicsClient(object):
             :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
         :param kwargs: Additional key/value pairs to pass to the controller as search parameters.
         :returns: A list of snapshots.
-        :rtype: :class:`Snapshots <appd.model.Snapshots>`
+        :rtype: appd.model.Snapshots
         """
 
         self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
@@ -376,7 +377,7 @@ class AppDynamicsClient(object):
         :param long end_time: End time, expressed in milliseconds since epoch. Only valid if the
             :attr:`time_range_type` is :const:`BEFORE_TIME` or :const:`BETWEEN_TIMES`.
         :returns: A list of policy violations.
-        :rtype: :class:`PolicyViolations <appd.model.PolicyViolations>`
+        :rtype: appd.model.PolicyViolations
         """
 
         params = self._validate_time_range(time_range_type, duration_in_mins, start_time, end_time)
