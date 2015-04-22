@@ -4,16 +4,16 @@ Model classes for AppDynamics REST API
 .. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
 
-__author__ = 'Todd Radel'
-
+__author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 from UserList import UserList
-from string import Template
 from .time import from_ts
+
 
 def _filter_func(obj, pred):
     def func():
         return obj.__class__([item for item in obj.data])
+
     return func
 
 
@@ -32,14 +32,15 @@ class JsonObject(object):
         return obj
 
     def __str__(self):
-        lrepr = ', '.join([x + '=' + repr(y) for x, y in self.__dict__.items()])
-        return Template("<$cls: $lrepr>").substitute(cls=self.__class__.__name__, lrepr=lrepr)
+        rep = ', '.join([x + '=' + repr(y) for x, y in self.__dict__.items()])
+        return '<{0}: {1}>'.format(self.__class__.__name__, rep)
 
     __repr__ = __str__
 
     def _list_setter(self, attr_name, new_val, allowed_vals):
         if new_val and (new_val not in allowed_vals):
-            raise ValueError("event_type must be one of " + ', '.join(allowed_vals) + " but got " + new_val)
+            raise ValueError('{0} must be one of [{1}] but got {2}'.format(
+                attr_name, ', '.join(allowed_vals), new_val))
         self.__setattr__(attr_name, new_val)
 
 
@@ -60,9 +61,8 @@ class JsonList(UserList):
         return cls(json_list)
 
     def __str__(self):
-        lrepr = ', '.join([str(x) for x in self.data])
-        return Template("<$cls[$len]: $lrepr>").substitute(cls=self.__class__.__name__,
-                                                           len=len(self.data), lrepr=lrepr)
+        rep = ', '.join([str(x) for x in self.data])
+        return '<{0}[{1}]: {2}>'.format(self.__class__.__name__, len(self.data), rep)
 
 
 class Application(JsonObject):
@@ -97,15 +97,31 @@ class Applications(JsonList):
     def __init__(self, initial_list=None):
         super(Applications, self).__init__(Application, initial_list)
 
-    def by_name(self, n):
-        found = [x for x in self.data if x.name == n]
+    def by_name(self, name):
+        """
+        Finds an application by name.
+
+        :returns: First application with the correct name
+        :rtype: Application
+        """
+        found = filter(lambda x: x.name == name, self.data)
         try:
             return found[0]
         except IndexError:
-            raise KeyError(n)
+            raise KeyError(name)
 
 
 class BusinessTransaction(JsonObject):
+    """
+    Represents a business transaction definition.
+
+    .. data:: id
+
+        Numeric ID of the BT definition.
+
+    .. data:: name
+
+    """
     FIELDS = {'id': '', 'name': '', 'type': 'entryPointType', 'internal_name': 'internalName',
               'is_background': 'background', 'tier_id': 'tierId', 'tier_name': 'tierName'}
 
@@ -120,10 +136,23 @@ class BusinessTransactions(JsonList):
         super(BusinessTransactions, self).__init__(BusinessTransaction, initial_list)
 
     def by_name(self, bt_name):
-        return BusinessTransactions([x for x in self.data if x.name == bt_name])
+        """
+        Searches for business transactions that match a particular name. Note that there may be more than one
+        exact match, as different tiers can have transactions with the exact same name.
+
+        :returns: a BusinessTransactions object containing the matching business transactions.
+        :rtype: BusinessTransactions
+        """
+        return BusinessTransactions(filter(lambda x: x.name == bt_name, self.data))
 
     def by_tier_and_name(self, bt_name, tier_name):
-        return BusinessTransactions([x for x in self.data if x.name == bt_name and x.tier_name == tier_name])
+        """
+        Searches for business transactions that match a particular BT name and tier name.
+
+        :returns: a BusinessTransactions object containing the matching business transactions.
+        :rtype: BusinessTransactions
+        """
+        return BusinessTransactions(filter(lambda x: x.name == bt_name and x.tier_name == tier_name, self.data))
 
 
 class Tier(JsonObject):
@@ -141,6 +170,9 @@ class Tier(JsonObject):
 
     @property
     def agent_type(self):
+        """
+        :rtype: str
+        """
         return self._agent_type
 
     @agent_type.setter
@@ -153,7 +185,19 @@ class Tiers(JsonList):
         super(Tiers, self).__init__(Tier, initial_list)
 
     def by_agent_type(self, agent_type):
-        return Tiers([x for x in self.data if x.agentType == agent_type])
+        """
+        Searches for tiers of a particular type (which should be one of Tier.AGENT_TYPES). For example, to find
+        all the Java app server tiers:
+
+        >>> from appd.request import AppDynamicsClient
+        >>> client = AppDynamicsClient(...)
+        >>> all_tiers = client.get_tiers()
+        >>> java_tiers = all_tiers.by_agent_type('APP_AGENT')
+
+        :returns: a Tiers object containing any tiers matching the criteria
+        :rtype: Tiers
+        """
+        return Tiers(filter(lambda x: x.agentType == agent_type, self.data))
 
 
 class Node(JsonObject):
@@ -177,16 +221,40 @@ class Nodes(JsonList):
         super(Nodes, self).__init__(Node, initial_list)
 
     def by_machine_name(self, name):
-        return Nodes([x for x in self.data if x.machineName == name])
+        """
+        Filters a Nodes collection to return only the nodes matching the given hostname.
+        :param str name: Hostname to match against.
+        :returns: a Nodes collection filtered by hostname.
+        :rtype: Nodes
+        """
+        return Nodes(filter(lambda x: x.machineName == name, self.data))
 
     def by_machine_id(self, machine_id):
-        return Nodes([x for x in self.data if x.machineId == machine_id])
+        """
+        Filters a Nodes collection to return only the nodes matching the given machine instance ID.
+        :param int machine_id: Machine ID to match against.
+        :returns: a Nodes collection filtered by machine ID.
+        :rtype: Nodes
+        """
+        return Nodes(filter(lambda x: x.machineId == machine_id, self.data))
 
     def by_tier_name(self, name):
-        return Nodes([x for x in self.data if x.tierName == name])
+        """
+        Filters a Nodes collection to return only the nodes belonging to the given tier.
+        :param str name: Tier name to match against.
+        :returns: a Nodes collection filtered by tier.
+        :rtype: Nodes
+        """
+        return Nodes(filter(lambda x: x.tierName == name, self.data))
 
     def by_tier_id(self, tier_id):
-        return Nodes([x for x in self.data if x.tierId == tier_id])
+        """
+        Filters a Nodes collection to return only the nodes belonging to the given tier ID.
+        :param int tier_id: Tier ID to match against.
+        :returns: a Nodes collection filtered by tier.
+        :rtype: Nodes
+        """
+        return Nodes(filter(lambda x: x.tierId == tier_id, self.data))
 
 
 class MetricValue(JsonObject):
@@ -243,13 +311,13 @@ class MetricData(JsonList):
         super(MetricData, self).__init__(MetricDataSingle, initial_list)
 
     def by_partial_name(self, name):
-        return MetricData([x for x in self if name in x.path])
+        return MetricData(filter(lambda x: name in x.path, self))
 
     def by_leaf_name(self, name):
-        return MetricData([x for x in self if x.path.split('|')[-1] == name])
+        return MetricData(filter(lambda x: x.path.split('|')[-1] == name, self))
 
     def by_path(self, path):
-        return MetricData([x for x in self if x.path == path])
+        return MetricData(filter(lambda x: x.path == path, self))
 
     def first_value(self):
         return self[0].values[0].value
@@ -348,6 +416,20 @@ class ConfigVariables(JsonList):
     def __init__(self, initial_list=None):
         super(ConfigVariables, self).__init__(ConfigVariable, initial_list)
 
+    def by_name(self, name):
+        """
+        Finds a config variable with the matching name.
+
+        :param str name: Variable name to find.
+        :return: The matching config variable.
+        :rtype: appd.model.ConfigVariable
+        """
+        found = filter(lambda x: x.name == name, self.data)
+        try:
+            return found[0]
+        except IndexError:
+            raise KeyError(name)
+
 
 class MetricTreeNode(JsonObject):
     FIELDS = {'name': '', 'type': ''}
@@ -384,12 +466,19 @@ class MetricTreeNodes(JsonList):
     def from_json(cls, json_list, parent=None):
         return cls(json_list, parent)
 
-    def by_name(self, n):
-        found = [x for x in self.data if x.name == n]
+    def by_name(self, name):
+        """
+        Finds a tree node with the matching name.
+
+        :param str name: Variable name to find.
+        :return: Metric tree node matching the name.
+        :rtype: appd.model.MetricTreeNode
+        """
+        found = filter(lambda x: x.name == name, self.data)
         try:
             return found[0]
         except IndexError:
-            raise KeyError(n)
+            raise KeyError(name)
 
 
 class EntityDefinition(JsonObject):
