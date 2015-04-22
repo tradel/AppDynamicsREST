@@ -16,6 +16,7 @@ def parse_argv(app_desc=None):
     Use of this function is optional but highly encouraged, as it allows all scripts based on the SDK to be
     invoked in a familiar way.
 
+    :param str app_desc: Short description of your application, to be printed when help is requested.
     :returns: a Namespace full of parsed arguments
     :rtype: argparse.Namespace
     """

@@ -14,9 +14,9 @@ def from_ts(ms):
     """
     Converts a timestamp from AppDynamics internal format to a Python :class:`datetime <datetime.datetime>` object.
 
-    :param ms: Timestamp expressed as milliseconds since epoch.
-    :return: Converted value.
-    :rtype: :class:`datetime <datetime.datetime>`
+    :param long ms: Timestamp expressed as milliseconds since epoch.
+    :returns: Converted value.
+    :rtype: datetime
     """
 
     return datetime.fromtimestamp(ms / 1000)
@@ -26,8 +26,8 @@ def to_ts(dt):
     """
     Converts a timestamp from Python :class:`datetime <datetime.datetime>` to AppDynamics format.
 
-    :param dt: Timestamp expressed as a :class:`datetime <datetime.datetime>`.
-    :return: Converted value.
+    :param datetime dt: Timestamp to convert.
+    :returns: Converted value.
     :rtype: long
     """
 
