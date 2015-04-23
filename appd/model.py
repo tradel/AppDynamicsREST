@@ -8,7 +8,7 @@ __author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 from UserList import UserList
 from .time import from_ts
-
+from datetime import datetime
 
 def _filter_func(obj, pred):
     def func():
@@ -102,7 +102,7 @@ class Applications(JsonList):
         Finds an application by name.
 
         :returns: First application with the correct name
-        :rtype: Application
+        :rtype: :class:`Application`
         """
         found = filter(lambda x: x.name == name, self.data)
         try:
@@ -272,6 +272,13 @@ class MetricValue(JsonObject):
 
     @property
     def start_time(self):
+        """
+        Gets the timestamp of the metric data, converting it from an AppDynamics timestamp to standard
+        Python :class:`datetime`.
+
+        :return: Time the violation was resolved
+        :rtype: :class:`datetime.datetime`
+        """
         return from_ts(self.start_time_ms)
 
 
@@ -563,6 +570,13 @@ class PolicyViolation(JsonObject):
 
     @property
     def end_time(self):
+        """
+        Gets the end time of the violation, converting it from an AppDynamics timestamp to standard
+        Python :class:datetime.
+
+        :return: Time the violation was resolved
+        :rtype: datetime
+        """
         return from_ts(self.end_time_ms)
 
     @property
@@ -603,6 +617,9 @@ class Event(JsonObject):
 
     @property
     def event_type(self):
+        """
+        :return:
+        """
         return self._event_type
 
     @event_type.setter
