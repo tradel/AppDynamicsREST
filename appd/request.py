@@ -4,12 +4,14 @@ This module contains the main classes for handling requests to the AppDynamics R
 .. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
 
-__docformat__ = 'reStructuredText'
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
+from __future__ import print_function
 
 import sys
 import requests
-from model import *
+from .model import *
+
+__docformat__ = 'reStructuredText'
+__author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 
 class AppDynamicsClient(object):
@@ -132,17 +134,17 @@ class AppDynamicsClient(object):
         params = params or {}
         if json:
             params['output'] = 'JSON'
-        for k in params.keys():
+        for k in list(params.keys()):
             if params[k] is None:
                 del params[k]
 
         if self.debug:
-            print 'Retrieving ' + url, self._auth, params
+            print('Retrieving ' + url, self._auth, params)
 
         r = requests.request(method, url, auth=self._auth, params=params)
 
         if r.status_code != requests.codes.ok:
-            print >> sys.stderr, url
+            print(url, file=sys.stderr)
             r.raise_for_status()
 
         return r.json() if json else r.text
@@ -354,7 +356,7 @@ class AppDynamicsClient(object):
         for qs_name in self.SNAPSHOT_REQUEST_PARAMS:
             arg_name = qs_name.replace('-', '_')
             params[qs_name] = kwargs.get(arg_name, None)
-            if qs_name in self.SNAPSHOT_REQUEST_LISTS and kwargs.has_key(qs_name):
+            if qs_name in self.SNAPSHOT_REQUEST_LISTS and qs_name in kwargs:
                 params[qs_name] = ','.join(params[qs_name])
 
         return self._app_request(Snapshots, '/request-snapshots', app_id, params)

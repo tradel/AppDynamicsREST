@@ -22,7 +22,7 @@ class JsonObject(object):
 
     @classmethod
     def _set_fields_from_json_dict(cls, obj, json_dict):
-        for k, v in obj.FIELDS.items():
+        for k, v in list(obj.FIELDS.items()):
             obj.__setattr__(k, json_dict[v or k])
 
     @classmethod
@@ -32,7 +32,7 @@ class JsonObject(object):
         return obj
 
     def __str__(self):
-        rep = ', '.join([x + '=' + repr(y) for x, y in self.__dict__.items()])
+        rep = ', '.join([x + '=' + repr(y) for x, y in list(self.__dict__.items())])
         return '<{0}: {1}>'.format(self.__class__.__name__, rep)
 
     __repr__ = __str__
@@ -104,7 +104,7 @@ class Applications(JsonList):
         :returns: First application with the correct name
         :rtype: :class:`Application`
         """
-        found = filter(lambda x: x.name == name, self.data)
+        found = [x for x in self.data if x.name == name]
         try:
             return found[0]
         except IndexError:
@@ -143,7 +143,7 @@ class BusinessTransactions(JsonList):
         :returns: a BusinessTransactions object containing the matching business transactions.
         :rtype: BusinessTransactions
         """
-        return BusinessTransactions(filter(lambda x: x.name == bt_name, self.data))
+        return BusinessTransactions([x for x in self.data if x.name == bt_name])
 
     def by_tier_and_name(self, bt_name, tier_name):
         """
@@ -152,7 +152,7 @@ class BusinessTransactions(JsonList):
         :returns: a BusinessTransactions object containing the matching business transactions.
         :rtype: BusinessTransactions
         """
-        return BusinessTransactions(filter(lambda x: x.name == bt_name and x.tier_name == tier_name, self.data))
+        return BusinessTransactions([x for x in self.data if x.name == bt_name and x.tier_name == tier_name])
 
 
 class Tier(JsonObject):
@@ -197,7 +197,7 @@ class Tiers(JsonList):
         :returns: a Tiers object containing any tiers matching the criteria
         :rtype: Tiers
         """
-        return Tiers(filter(lambda x: x.agentType == agent_type, self.data))
+        return Tiers([x for x in self.data if x.agentType == agent_type])
 
 
 class Node(JsonObject):
@@ -227,7 +227,7 @@ class Nodes(JsonList):
         :returns: a Nodes collection filtered by hostname.
         :rtype: Nodes
         """
-        return Nodes(filter(lambda x: x.machineName == name, self.data))
+        return Nodes([x for x in self.data if x.machineName == name])
 
     def by_machine_id(self, machine_id):
         """
@@ -236,7 +236,7 @@ class Nodes(JsonList):
         :returns: a Nodes collection filtered by machine ID.
         :rtype: Nodes
         """
-        return Nodes(filter(lambda x: x.machineId == machine_id, self.data))
+        return Nodes([x for x in self.data if x.machineId == machine_id])
 
     def by_tier_name(self, name):
         """
@@ -245,7 +245,7 @@ class Nodes(JsonList):
         :returns: a Nodes collection filtered by tier.
         :rtype: Nodes
         """
-        return Nodes(filter(lambda x: x.tierName == name, self.data))
+        return Nodes([x for x in self.data if x.tier_name == name])
 
     def by_tier_id(self, tier_id):
         """
@@ -254,7 +254,7 @@ class Nodes(JsonList):
         :returns: a Nodes collection filtered by tier.
         :rtype: Nodes
         """
-        return Nodes(filter(lambda x: x.tierId == tier_id, self.data))
+        return Nodes([x for x in self.data if x.tier_id == tier_id])
 
 
 class MetricValue(JsonObject):
@@ -318,13 +318,13 @@ class MetricData(JsonList):
         super(MetricData, self).__init__(MetricDataSingle, initial_list)
 
     def by_partial_name(self, name):
-        return MetricData(filter(lambda x: name in x.path, self))
+        return MetricData([x for x in self if name in x.path])
 
     def by_leaf_name(self, name):
-        return MetricData(filter(lambda x: x.path.split('|')[-1] == name, self))
+        return MetricData([x for x in self if x.path.split('|')[-1] == name])
 
     def by_path(self, path):
-        return MetricData(filter(lambda x: x.path == path, self))
+        return MetricData([x for x in self if x.path == path])
 
     def first_value(self):
         return self[0].values[0].value
@@ -358,7 +358,7 @@ class Snapshot(JsonObject):
     def __init__(self, snap_id=0, **kwargs):
         self.id = snap_id
         self.local_start_time_ms, self.server_start_time_ms = 0, 0
-        for k, v in Snapshot.FIELDS.items():
+        for k, v in list(Snapshot.FIELDS.items()):
             self.__setattr__(k, kwargs.get(k, None))
 
     @property
@@ -431,7 +431,7 @@ class ConfigVariables(JsonList):
         :return: The matching config variable.
         :rtype: appd.model.ConfigVariable
         """
-        found = filter(lambda x: x.name == name, self.data)
+        found = [x for x in self.data if x.name == name]
         try:
             return found[0]
         except IndexError:
@@ -481,7 +481,7 @@ class MetricTreeNodes(JsonList):
         :return: Metric tree node matching the name.
         :rtype: appd.model.MetricTreeNode
         """
-        found = filter(lambda x: x.name == name, self.data)
+        found = [x for x in self.data if x.name == name]
         try:
             return found[0]
         except IndexError:
