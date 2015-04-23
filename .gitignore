@@ -8,3 +8,5 @@ MANIFEST
 *.iml
 temp.*
 docs/_build/
+.DS_Store
+
