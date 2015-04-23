@@ -6,9 +6,7 @@ Date:        26 August 2013
 
 # Python SDK for AppDynamics REST API
 
-Current version: **unreleased**
-**v0.4.0**
-**v0.4.0-dev**
+Current version: **v0.4.0**
 
 ## Purpose
 
@@ -28,35 +26,37 @@ Here's a simple example. It retrieves a list of business applications from the c
 and prints them out. It uses a helper class `appd.cmdline` to let you supply the controller
 URL, username, password, and account on the command line.
 
-``` python
-from appd.cmdline import parse_argv
-from appd.request import AppDynamicsClient
-
-args = parse_argv()
-c = AppDynamicsClient(args.url, args.username, args.password, args.account, args.verbose)
-for app in c.get_applications():
-	print app.name, app.id
-```
+    from appd.cmdline import parse_argv
+    from appd.request import AppDynamicsClient
+    
+    args = parse_argv()
+    c = AppDynamicsClient(args.url, args.username, args.password, args.account, args.verbose)
+    for app in c.get_applications():
+        print app.name, app.id
 
 ## Prerequisites
 
-This package requires a couple of other modules:
+This package requires the [requests](https://pypi.python.org/pypi/requests) module to do its HTTP and JSON
+magic. If you want to try the sample scripts, some of them require additional modules:
 
 * [tzlocal](https://pypi.python.org/pypi/tzlocal)
-* [requests](https://pypi.python.org/pypi/requests)
 * [lxml](https://pypi.python.org/pypi/lxml)
 
-If you use the setup script documented in the next section, you don't need to install these yourself.
-The script will check for the prerequisites and install them if they are missing.
+If you use `pip` or the `setup.py` script to install this module (see next section), you don't need to install 
+the prerequisites yourself. They'll be installed for you.
 
 
 ## Installation
 
 The package includes the standard python `setup.py`, so you can install it with a simple command:
 
-``` bash
-python setup.py install
-```
+    python setup.py install
+
+If you have [pip](https://pip.pypa.io/en/stable/), you can also download and install this SDK from the
+Python Package Index ([PyPI](https://pypi.python.org/pypi)) with a single command:
+
+    pip install AppDynamicsREST
+
 
 ## Examples
 
@@ -74,9 +74,7 @@ The package includes a couple of scripts that demonstrate what you can do with t
 To run the scripts, you need to pass the controller URL, username, and password on the command line. If you are on
 a multi-tenant controller or hosted on SaaS, you will also need to pass an account name. Here's an example:
 
-``` bash
-python examples/bt_metrics.py --url http://appdyn-prod.local:8090 --username user1 --password welcome
-```
+    python examples/bt_metrics.py --url http://appdyn-prod.local:8090 --username user1 --password welcome
 
 For the full list of command line options supported, see the next section.
 
