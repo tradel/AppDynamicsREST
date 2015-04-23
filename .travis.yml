@@ -1,14 +1,18 @@
 language: python
 python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-# command to install dependencies
+  - '2.6'
+  - '2.7'
+  - '3.2'
+  - '3.3'
+  - '3.4'
 install:
-  - "pip install ."
-  - "pip install -r requirements.txt"
-# command to run tests
+  - pip install .
+  - pip install -r requirements.txt
 script: nosetests
-
+deploy:
+  provider: pypi
+  user: tradel
+  password: 4kSU9Ly723M6
+  distributions: "sdist bdist_wheel"
+  on:
+    tags: true
