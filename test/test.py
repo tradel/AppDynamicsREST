@@ -7,9 +7,7 @@ Model classes for AppDynamics REST API
 __author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 import unittest
-from appd.model import *
-from appd.request import AppDynamicsClient
-
+import appd
 
 class ApplicationApiTest(unittest.TestCase):
 
@@ -19,7 +17,7 @@ class ApplicationApiTest(unittest.TestCase):
     test_acct = 'customer1'
 
     def setUp(self):
-        self.c = AppDynamicsClient(self.test_url, self.test_user, self.test_pass, self.test_acct)
+        self.c = appd.request.AppDynamicsClient(self.test_url, self.test_user, self.test_pass, self.test_acct)
 
     def test_app_list(self):
         apps = self.c.get_applications()
