@@ -21,7 +21,7 @@ class ApplicationApiTest(unittest.TestCase):
 
     def test_app_list(self):
         apps = self.c.get_applications()
-        self.assertEqual(len(apps), 2)
+        self.assertEqual(len(apps), 3)
         self.assertEqual(apps[0].id, 4)
         self.assertEqual(apps[0].name, 'ECommerce')
         self.assertEqual(apps[1].id, 6)
