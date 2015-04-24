@@ -1,22 +1,24 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = 'Todd Radel'
-__copyright__ = 'Copyright (c) 2013 AppDynamics Inc.'
-__version__ = '0.1.0'
+from __future__ import print_function
 
 from string import Template
 from datetime import datetime, timedelta
 from time import mktime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from MySQLdb.cursors import DictCursor
+from jinja2 import Environment, FileSystemLoader
 import argparse
 import smtplib
 import sys
-
 import MySQLdb
-from MySQLdb.cursors import DictCursor
-from jinja2 import Environment, FileSystemLoader
+
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
 
 
 def parse_argv():
@@ -74,7 +76,7 @@ def from_ts(ms):
 
 
 def to_ts(dt):
-    return long(mktime(dt.timetuple())) * 1000
+    return int(mktime(dt.timetuple())) * 1000
 
 
 ACTIONS = {
@@ -212,13 +214,13 @@ def create_temp_table(cur):
         """
         cur.execute(sql)
     except:
-        print >> sys.stderr, "*** ERROR creating temporary table"
+        print("*** ERROR creating temporary table", file=sys.stderr)
         raise
 
 
 def insert_object_crud(cur, params):
     try:
-        for table_name, table_data in AUDIT_TABLES.iteritems():
+        for table_name, table_data in AUDIT_TABLES.items():
             params.update({
                 'table_name': table_name,
                 'id_field': table_data.get('id_field', 'id'),
@@ -247,13 +249,13 @@ def insert_object_crud(cur, params):
             sql = Template(sql).substitute(params)
             cur.execute(sql)
     except:
-        print >> sys.stderr, "*** ERROR EXECUTING SQL: ", sql
+        print("*** ERROR EXECUTING SQL: ", sql, file=sys.stderr)
         raise
 
 
 def insert_agent_configuration_crud(cur, params):
     try:
-        for entity_type, entity_data in ENTITY_TYPES.iteritems():
+        for entity_type, entity_data in ENTITY_TYPES.items():
             params.update({
                 'entity_type': entity_type,
                 'app_name_expr': entity_data.get('app_name_expr', 'NULL'),
@@ -278,7 +280,7 @@ def insert_agent_configuration_crud(cur, params):
             sql = Template(sql).substitute(params)
             cur.execute(sql)
     except:
-        print >> sys.stderr, "*** ERROR EXECUTING SQL: ", sql
+        print("*** ERROR EXECUTING SQL: ", sql, file=sys.stderr)
         raise
 
 
@@ -299,7 +301,7 @@ def insert_logins(cur, params):
         sql = Template(sql).substitute(params)
         cur.execute(sql)
     except:
-        print >> sys.stderr, "*** ERROR EXECUTING SQL: ", sql
+        print("*** ERROR EXECUTING SQL: ", sql, file=sys.stderr)
         raise
 
 

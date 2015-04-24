@@ -1,31 +1,29 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
-# BackendMetrics.py
-#
-# Author: Todd Radel
-# Date:   29 April 2013
-#
-# This script generates a report of response times, calls, and errors for all the backends registered
-# on a controller. The output is generated as XML and can be sent to a file with this syntax:
-#
-# python BackendMetrics.py > metric_output.xml
-#
-# By default this will connect to a controller on localhost:8090. The script accepts command-line
-# arguments to change the connection parameters:
-#
-# --controller=<url>
-# --account=<account>
-# --username=<name>
-# --password=<password>
-#
-# Example:
-# python BackendMetrics.py --controller=http://10.1.2.3:8090 --account=customer1 --username=demo --password=abc123
+"""
+This script generates a report of response times, calls, and errors for all the backends registered
+on a controller. The output is generated as XML and can be sent to a file with this syntax::
 
+    python BackendMetrics.py > metric_output.xml
+
+By default this will connect to a controller on localhost:8090. The script accepts command-line
+arguments to change the connection parameters:
+
+--controller=<url>
+--account=<account>
+--username=<name>
+--password=<password>
+
+Example::
+    python BackendMetrics.py --controller=http://10.1.2.3:8090 --account=customer1 --username=demo --password=abc123
+"""
+
+from __future__ import print_function
 
 from collections import defaultdict
 from datetime import datetime
 from time import mktime
-
 from lxml.builder import ElementMaker
 from lxml import etree
 import tzlocal
@@ -33,6 +31,10 @@ import tzlocal
 from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
 
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
 
 
 # The report will generate data for the 24-hour period before midnight of the current day. To change the
@@ -51,17 +53,20 @@ end_epoch = int(mktime(end_time.timetuple())) * 1000
 def map_art(d, metric_total, metric_average, metric_sum, max_point):
     d['art'] = metric_average
 
+
 def map_cpm(d, metric_total, metric_average, metric_sum, max_point):
     d['total_calls'] = metric_total
     d['cpm_average'] = metric_average
     d['cpm_max'] = max_point[0]
     d['cpm_max_time'] = max_point[1]
 
+
 def map_err(d, metric_total, metric_average, metric_sum, max_point):
     d['total_errors'] = metric_total
     d['epm_avg'] = metric_average
     d['epm_max'] = max_point[0]
     d['epm_max_time'] = max_point[1]
+
 
 def no_such_metric(d, metric_total, metric_average, metric_sum, max_point):
     raise ValueError("no such metric")
@@ -79,6 +84,7 @@ METRIC_DISPATCHER = {
 
 def now_rfc3339():
     return datetime.now(tzlocal.get_localzone()).isoformat('T')
+
 
 def freq_to_mins(md):
     FREQ_MAP = {'ONE_MIN': 1, 'TEN_MIN': 10, 'SIXTY_MIN': 60}
@@ -143,5 +149,5 @@ for k, v in sorted(rows.items()):
 
 # Print the report to stdout.
 
-print etree.ProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"')
-print etree.tostring(root, pretty_print=True, encoding='UTF-8')
+print(etree.ProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"'))
+print(etree.tostring(root, pretty_print=True, encoding='UTF-8'))

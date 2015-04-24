@@ -31,6 +31,6 @@ def to_ts(dt):
     :rtype: long
     """
 
-    return long(mktime(dt.timetuple())) * 1000
+    return int(mktime(dt.timetuple())) * 1000
 
 

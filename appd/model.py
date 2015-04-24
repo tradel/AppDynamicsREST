@@ -6,7 +6,7 @@ Model classes for AppDynamics REST API
 
 __author__ = 'Todd Radel <tradel@appdynamics.com>'
 
-from future.moves.collections import UserDict, UserList
+from six.moves import UserList
 from .time import from_ts
 from datetime import datetime
 

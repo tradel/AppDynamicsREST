@@ -1,12 +1,19 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
-
-import itertools
+from __future__ import print_function
 
 from datetime import datetime
+import itertools
+
 from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
+
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
+
 
 def incr(d, name, amt=1):
     d[name] = d.get(name, 0) + amt
@@ -68,12 +75,12 @@ tot_nodes, tot_hosts, tot_licenses = (0, 0, 0)
 header_fmt = '%-30s %-15s %-15s %s'
 data_fmt = '%-30s %15d %15d %15d'
 
-print
-print 'License usage report for ', args.url
-print 'Generated at: ', datetime.now()
-print
-print header_fmt % ('App Name', 'Node Count', 'Host Count', 'License Count')
-print header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15)
+print()
+print('License usage report for ', args.url)
+print('Generated at: ', datetime.now())
+print()
+print(header_fmt % ('App Name', 'Node Count', 'Host Count', 'License Count'))
+print(header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15))
 
 for node_type in sorted(node_counts.keys()):
     node_count = node_counts.get(node_type, 0)
@@ -82,7 +89,7 @@ for node_type in sorted(node_counts.keys()):
     tot_nodes += node_count
     tot_hosts += host_count
     tot_licenses += lic_count
-    print data_fmt % (node_type, node_count, host_count, lic_count)
+    print(data_fmt % (node_type, node_count, host_count, lic_count))
 
-print header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15)
-print data_fmt % ('TOTAL', tot_nodes, tot_hosts, tot_licenses)
+print(header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15))
+print(data_fmt % ('TOTAL', tot_nodes, tot_hosts, tot_licenses))

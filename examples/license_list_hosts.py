@@ -1,15 +1,19 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
+from __future__ import print_function
 
 import itertools
 import csv
-import sys
-from datetime import datetime
 
-sys.path.append('.')
 from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
+
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
+
 
 def incr(d, name, amt=1):
     d[name] = d.get(name, 0) + amt
@@ -21,10 +25,10 @@ c = AppDynamicsClient(args.url, args.username, args.password, args.account, args
 nodes = []
 for app in c.get_applications():
     for node in c.get_nodes(app.id):
-        # node_type = node.type
-        # print node.id, node.machine_id, node.machine_name, node.type
+
         node.app_id = app.id
         node.app_name = app.name
+
         if node.has_machine_agent or node.has_app_agent:
             if node.has_app_agent:
                 if 'PHP' in node.type:
@@ -35,6 +39,7 @@ for app in c.get_applications():
                     node.group_type = 'Java App Agent'
             else:
                 node.group_type = 'Machine Agent only'
+
             nodes.append(node)
 
 
@@ -56,7 +61,6 @@ with open('data/licenses_by_host.csv', 'w') as f:
         agent_type = first_node.group_type
         types = [x.group_type for x in nodes_on_machine]
         all_same = all(x.group_type == agent_type for x in nodes_on_machine)
-        # print all_same, types
         assert all_same, first_node
 
         license_count = 1

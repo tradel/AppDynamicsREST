@@ -1,19 +1,24 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
 """
 Sample script to generate a count of licenses used by app name, regardless of environment type
 (Prod, Devl, Qual, Cert, etc.)
-
-.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
 
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
+from __future__ import print_function
 
-import itertools
 from datetime import datetime
+import itertools
 
 from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
+
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
+
 
 def incr(d, name, amt=1):
     d[name] = d.get(name, 0) + amt
@@ -77,12 +82,12 @@ tot_nodes, tot_hosts, tot_licenses = (0, 0, 0)
 header_fmt = '%-30s\t%-15s\t%-15s\t%s'
 data_fmt = '%-30s\t%15d\t%15d\t%15d'
 
-print
-print 'License usage report for ', args.url
-print 'Generated at: ', datetime.now()
-print
-print header_fmt % ('App Name', 'Node Count', 'Host Count', 'License Count')
-print header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15)
+print()
+print('License usage report for ', args.url)
+print('Generated at: ', datetime.now())
+print()
+print(header_fmt % ('App Name', 'Node Count', 'Host Count', 'License Count'))
+print(header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15))
 
 for app_name in sorted(node_counts.keys()):
     node_count = node_counts.get(app_name, 0)
@@ -91,7 +96,7 @@ for app_name in sorted(node_counts.keys()):
     tot_nodes += node_count
     tot_hosts += host_count
     tot_licenses += lic_count
-    print data_fmt % (app_name, node_count, host_count, lic_count)
+    print(data_fmt % (app_name, node_count, host_count, lic_count))
 
-print header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15)
-print data_fmt % ('TOTAL', tot_nodes, tot_hosts, tot_licenses)
+print(header_fmt % ('=' * 30, '=' * 15, '=' * 15, '=' * 15))
+print(data_fmt % ('TOTAL', tot_nodes, tot_hosts, tot_licenses))

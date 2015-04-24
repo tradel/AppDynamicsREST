@@ -1,37 +1,40 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
-# BusinessTransaction.py
-#
-# Author: Todd Radel
-# Date:   29 April 2013
-#
-# This script generates a report of response times, calls, and errors for all the BT's registered
-# on a controller. The output is generated as XML and can be sent to a file with this syntax:
-#
-# python BusinessTransactionsMetrics.py > metric_output.xml
-#
-# By default this will connect to a controller on localhost:8090. The script accepts command-line
-# arguments to change the connection parameters:
-#
-# --controller=<url>
-# --account=<account>
-# --username=<name>
-# --password=<password>
-#
-# Example:
-# python BTMetrics.py --controller=http://10.1.2.3:8090 --account=customer1 --username=demo --password=abc123
+"""
+This script generates a report of response times, calls, and errors for all the BT's registered
+on a controller. The output is generated as XML and can be sent to a file with this syntax::
 
+    python BusinessTransactionsMetrics.py > metric_output.xml
+
+By default this will connect to a controller on localhost:8090. The script accepts command-line
+arguments to change the connection parameters:
+
+--controller=<url>
+--account=<account>
+--username=<name>
+--password=<password>
+
+Example::
+     python BTMetrics.py --controller=http://10.1.2.3:8090 --account=customer1 --username=demo --password=abc123
+"""
+
+from __future__ import print_function
 
 from collections import defaultdict
 from datetime import datetime
 from time import mktime
-
 from lxml.builder import ElementMaker
 from lxml import etree
 import tzlocal
 
 from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
+
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
 
 
 # The report will generate data for the 24-hour period before midnight of the current day. To change the
@@ -72,7 +75,7 @@ METRIC_MAP = {'Average Block Time (ms)': 'abt',
               'Stall Count': 'stalls'}
 
 
-empty_row = dict([(x,0) for x in METRIC_MAP.values()])
+empty_row = dict([(x, 0) for x in list(METRIC_MAP.values())])
 rows = defaultdict(dict)
 
 for app in c.get_applications():
@@ -88,7 +91,7 @@ for app in c.get_applications():
         tier_bts = bt_list.by_tier_and_name(bt_name, tier_name)
         if tier_bts:
             bt = tier_bts[0]
-            if len(md.values) > 0 and METRIC_MAP.has_key(metric_name):
+            if len(md.values) > 0 and metric_name in METRIC_MAP:
                 key = (tier_name, bt_name)
                 rows.setdefault(key, empty_row.copy()).update({'app_id': app.id,
                                                                'app_name': app.name,
@@ -125,10 +128,10 @@ for k, v in sorted(rows.items()):
         E.SlowCalls(str(v['slow'])),
         E.VerySlowCalls(str(v['veryslow'])),
         E.Stalls(str(v['stalls'])),
-        ))
+    ))
 
 
 # Print the report to stdout.
 
-print etree.ProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"')
-print etree.tostring(root, pretty_print=True, encoding='UTF-8')
+print(etree.ProcessingInstruction('xml', 'version="1.0" encoding="UTF-8"'))
+print(etree.tostring(root, pretty_print=True, encoding='UTF-8'))

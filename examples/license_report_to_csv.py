@@ -1,12 +1,18 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
+from __future__ import print_function
 
 import itertools
 import csv
 
 from appd.cmdline import parse_argv
 from appd.request import AppDynamicsClient
+
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
 
 
 args = parse_argv()
