@@ -8,7 +8,7 @@ History
  * Included API documentation.
  * Added support for AppDynamics REST API 2.0.
 
-0.4.1-dev (2015-04-21)
+0.4.1 (2015-04-21)
 ------------------
  * First release on PyPI.
  * Added unit test framework.
