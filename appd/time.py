@@ -1,7 +1,5 @@
 """
 This module contains the main classes for handling requests to the AppDynamics REST API.
-
-.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
 
 from __future__ import absolute_import

@@ -1,7 +1,5 @@
 """
 This module contains the main classes for handling requests to the AppDynamics REST API.
-
-.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
 
 from __future__ import print_function
@@ -9,9 +7,6 @@ from __future__ import print_function
 import sys
 import requests
 from .model import *
-
-__docformat__ = 'reStructuredText'
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 
 class AppDynamicsClient(object):

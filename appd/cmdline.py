@@ -1,10 +1,6 @@
 """
 Command line parsing for REST API scripts.
-
-.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
-
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 import argparse
 
