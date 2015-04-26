@@ -16,7 +16,7 @@ from appd.time import from_ts, to_ts
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
-__version__ = '0.4.0'
+__version__ = '0.4.1-dev'
 
 
 # Parse the command line arguments and initialize the client

@@ -3,7 +3,7 @@
 AppDynamics REST API Library
 ============================
 
-Current version: 0.4.0
+Current version: 0.4.1-dev
 
 Released: 23-Apr-2015
 
