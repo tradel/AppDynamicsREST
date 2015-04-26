@@ -1,23 +1,22 @@
-.. Python SDK for AppDynamics REST API documentation master file, created by
-   sphinx-quickstart on Tue Feb 25 10:11:28 2014.
+.. AppDynamicsREST documentation master file, created by
+   sphinx-quickstart on Tue Jul  9 22:26:36 2013.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to the Python SDK for AppDynamics REST API!
-===================================================
+Welcome to AppDynamics REST Library's documentation!
+======================================
 
 Contents:
----------
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
-   appsphere
-   api
-
-Modules
--------
-
+   readme
+   installation
+   usage
+   contributing
+   authors
+   history
 
 Indices and tables
 ==================
