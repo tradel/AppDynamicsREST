@@ -1,13 +1,17 @@
-"""
-Model classes for AppDynamics REST API
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
-.. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
-
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
+Unit tests for AppDynamics REST API
+"""
 
 import unittest
 import appd
+
+__author__ = 'Todd Radel'
+__copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
+__version__ = '0.4.0'
+
 
 class ApplicationApiTest(unittest.TestCase):
 
