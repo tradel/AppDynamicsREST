@@ -1,4 +1,5 @@
 #! /usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 
 # __author__ = 'Todd Radel <tradel@appdynamics.com>'
 
@@ -35,6 +36,7 @@ setup(name='AppDynamicsREST',
       extras_require={'examples': ['lxml', 'tzlocal', 'jinja2'], 'testing': ['nose']},
       test_suite='nose.collector',
       tests_require=['nose'],
+      license='Apache',
       classifiers=[
           'Programming Language :: Python',
           'Intended Audience :: Developers',
@@ -49,5 +51,4 @@ setup(name='AppDynamicsREST',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.3',
           'Programming Language :: Python :: 3.4'],
-
 )

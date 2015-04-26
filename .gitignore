@@ -3,11 +3,14 @@ dist/
 tmp/
 *.pyc
 MANIFEST
+.DS_Store
 *.egg-info
 .idea
 *.iml
 temp.*
 .eggs/
 docs/_build/
-.DS_Store
-
+.coverage
+.tox/
+htmlcov/
+*.old
