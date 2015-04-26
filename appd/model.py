@@ -4,11 +4,11 @@ Model classes for AppDynamics REST API
 .. moduleauthor:: Todd Radel <tradel@appdynamics.com>
 """
 
-__author__ = 'Todd Radel <tradel@appdynamics.com>'
 
 from six.moves import UserList
 from .time import from_ts
 from datetime import datetime
+
 
 def _filter_func(obj, pred):
     def func():
@@ -18,6 +18,7 @@ def _filter_func(obj, pred):
 
 
 class JsonObject(object):
+
     FIELDS = {}
 
     @classmethod
@@ -45,6 +46,7 @@ class JsonObject(object):
 
 
 class JsonList(UserList):
+
     OBJECT_TYPE = None
 
     def __init__(self, cls, initial_list=None):
@@ -93,9 +95,14 @@ class Applications(JsonList):
     Represents a collection of :class:`Application` objects. Extends :class:`UserList`, so it supports the
     standard array index and :keyword:`for` semantics.
     """
-
     def __init__(self, initial_list=None):
         super(Applications, self).__init__(Application, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: Application
+        """
+        return self.data[i]
 
     def by_name(self, name):
         """
@@ -132,8 +139,15 @@ class BusinessTransaction(JsonObject):
 
 
 class BusinessTransactions(JsonList):
+
     def __init__(self, initial_list=None):
         super(BusinessTransactions, self).__init__(BusinessTransaction, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: BusinessTransaction
+        """
+        return self.data[i]
 
     def by_name(self, bt_name):
         """
@@ -156,6 +170,7 @@ class BusinessTransactions(JsonList):
 
 
 class Tier(JsonObject):
+
     FIELDS = {'id': '', 'name': '', 'description': '', 'type': '',
               'node_count': 'numberOfNodes', 'agent_type': 'agentType'}
     AGENT_TYPES = ('APP_AGENT', 'MACHINE_AGENT',
@@ -181,8 +196,15 @@ class Tier(JsonObject):
 
 
 class Tiers(JsonList):
+
     def __init__(self, initial_list=None):
         super(Tiers, self).__init__(Tier, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: Tier
+        """
+        return self.data[i]
 
     def by_agent_type(self, agent_type):
         """
@@ -201,6 +223,7 @@ class Tiers(JsonList):
 
 
 class Node(JsonObject):
+
     FIELDS = {'id': '', 'name': '', 'type': '', 'machine_id': 'machineId', 'machine_name': 'machineName',
               'tier_id': 'tierId', 'tier_name': 'tierName', 'unique_id': 'nodeUniqueLocalId',
               'os_type': 'machineOSType', 'has_app_agent': 'appAgentPresent', 'app_agent_version': 'appAgentVersion',
@@ -217,8 +240,15 @@ class Node(JsonObject):
 
 
 class Nodes(JsonList):
+
     def __init__(self, initial_list=None):
         super(Nodes, self).__init__(Node, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: Node
+        """
+        return self.data[i]
 
     def by_machine_name(self, name):
         """
@@ -258,6 +288,7 @@ class Nodes(JsonList):
 
 
 class MetricValue(JsonObject):
+
     FIELDS = {
         'current': '',
         'min': '',
@@ -283,11 +314,20 @@ class MetricValue(JsonObject):
 
 
 class MetricValues(JsonList):
+
     def __init__(self, initial_list=None):
         super(MetricValues, self).__init__(MetricValue, initial_list)
 
+    def __getitem__(self, i):
+        """
+        :rtype: MetricValue
+        """
+        return self.data[i]
+
+
 
 class MetricDataSingle(JsonObject):
+
     FIELDS = {
         'frequency': '',
         'path': 'metricPath'
@@ -317,6 +357,12 @@ class MetricData(JsonList):
     def __init__(self, initial_list=None):
         super(MetricData, self).__init__(MetricDataSingle, initial_list)
 
+    def __getitem__(self, i):
+        """
+        :rtype: MetricDataSingle
+        """
+        return self.data[i]
+
     def by_partial_name(self, name):
         return MetricData([x for x in self if name in x.path])
 
@@ -331,6 +377,7 @@ class MetricData(JsonList):
 
 
 class Snapshot(JsonObject):
+
     FIELDS = {'id': '', 'local_id': 'localID', 'request_guid': 'requestGUID', 'summary': '',
               'bt_id': 'businessTransactionId', 'app_id': 'applicationId',
               'url': 'URL', 'archived': '', 'async': '', 'stall_dump': 'stallDump',
@@ -371,8 +418,15 @@ class Snapshot(JsonObject):
 
 
 class Snapshots(JsonList):
+
     def __init__(self, initial_list=None):
         super(Snapshots, self).__init__(Snapshot, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: Snapshot
+        """
+        return self.data[i]
 
 
 class ConfigVariable(JsonObject):
@@ -400,7 +454,6 @@ class ConfigVariable(JsonObject):
       Scope of the variable. The scope can be ``'cluster'`` or ``'local'``. Variables with cluster scope are
       replicated across HA controllers; local variables are not.
     """
-
     FIELDS = {
         'name': '',
         'description': '',
@@ -419,9 +472,14 @@ class ConfigVariables(JsonList):
     Represents a collection of :class:`ConfigVariable` objects. Extends :class:`UserList`, so it supports the
     standard array index and :keyword:`for` semantics.
     """
-
     def __init__(self, initial_list=None):
         super(ConfigVariables, self).__init__(ConfigVariable, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: ConfigVariable
+        """
+        return self.data[i]
 
     def by_name(self, name):
         """
@@ -439,6 +497,7 @@ class ConfigVariables(JsonList):
 
 
 class MetricTreeNode(JsonObject):
+
     FIELDS = {'name': '', 'type': ''}
     NODE_TYPES = ('leaf', 'folder')
 
@@ -459,6 +518,7 @@ class MetricTreeNode(JsonObject):
 
 
 class MetricTreeNodes(JsonList):
+
     def __init__(self, initial_list=None, parent=None):
         super(MetricTreeNodes, self).__init__(MetricTreeNode, initial_list)
 
@@ -468,6 +528,12 @@ class MetricTreeNodes(JsonList):
                 raise TypeError('was expecting a MetricTreeNode')
             for x in self.data:
                 x.parent = parent
+
+    def __getitem__(self, i):
+        """
+        :rtype: MetricTreeNode
+        """
+        return self.data[i]
 
     @classmethod
     def from_json(cls, json_list, parent=None):
@@ -518,6 +584,7 @@ class EntityDefinition(JsonObject):
 
 
 class PolicyViolation(JsonObject):
+
     FIELDS = {'id': '',
               'name': '',
               'description': '',
@@ -584,7 +651,20 @@ class PolicyViolation(JsonObject):
         return from_ts(self.detected_time_ms)
 
 
+class PolicyViolations(JsonList):
+
+    def __init__(self, initial_list=None):
+        super(PolicyViolations, self).__init__(PolicyViolation, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: PolicyViolation
+        """
+        return self.data[i]
+
+
 class Event(JsonObject):
+
     FIELDS = {'id': '',
               'summary': '',
               'type': '',
@@ -627,6 +707,15 @@ class Event(JsonObject):
         self._list_setter('_event_type', new_type, Event.EVENT_TYPES)
 
 
-class PolicyViolations(JsonList):
+class Events(JsonList):
+
     def __init__(self, initial_list=None):
-        super(PolicyViolations, self).__init__(PolicyViolation, initial_list)
+        super(Events, self).__init__(Event, initial_list)
+
+    def __getitem__(self, i):
+        """
+        :rtype: Event
+        """
+        return self.data[i]
+
+
