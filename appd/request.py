@@ -6,7 +6,16 @@ from __future__ import print_function
 
 import sys
 import requests
-from .model import *
+
+from appd.model.application import *
+from appd.model.config_variable import *
+from appd.model.tier import *
+from appd.model.metric_treenode import *
+from appd.model.business_transaction import *
+from appd.model.policy_violation import *
+from appd.model.snapshot import *
+from appd.model.metric_data import *
+from appd.model.node import *
 
 
 class AppDynamicsClient(object):
