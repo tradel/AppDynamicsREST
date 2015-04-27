@@ -5,4 +5,4 @@ pandas
 pylab
 tzlocal
 jinja2
-MySQLdb
+mysql-python
