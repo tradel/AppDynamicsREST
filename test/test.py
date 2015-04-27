@@ -21,14 +21,14 @@ class ApplicationApiTest(unittest.TestCase):
 
     def assertIn(self, test_value, expected_set):
         """
-        Included or compatibility with Python 2.6
+        Included for compatibility with Python 2.6
         """
         msg = "%s did not occur in %s" % (test_value, expected_set)
         self.assert_(test_value in expected_set, msg)
 
     def assertNotIn(self, test_value, expected_set):
         """
-        Included or compatibility with Python 2.6
+        Included for compatibility with Python 2.6
         """
         msg = "%s was found in %s" % (test_value, expected_set)
         self.assert_(test_value not in expected_set, msg)
