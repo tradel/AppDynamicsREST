@@ -6,7 +6,7 @@ Unit tests for AppDynamics REST API
 """
 
 import unittest
-from test import ApplicationApiTest
+from .test import ApplicationApiTest
 from datetime import datetime, timedelta
 import creds.ec2_root as creds
 import appd

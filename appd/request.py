@@ -431,13 +431,13 @@ class AppDynamicsClient(object):
         """
         :rtype: Account
         """
-        return self._v2_request(Account, '/accounts/{}'.format(account_id))
+        return self._v2_request(Account, '/accounts/{0}'.format(account_id))
 
     def get_license_modules(self, account_id):
         """
         :rtype: LicenseModules
         """
-        return self._v2_request(LicenseModules, '/accounts/{}/licensemodules'.format(account_id))
+        return self._v2_request(LicenseModules, '/accounts/{0}/licensemodules'.format(account_id))
 
     def get_license_usage(self, account_id, license_module=None, start_time=None, end_time=None):
         """
@@ -453,7 +453,7 @@ class AppDynamicsClient(object):
             'startdate': start_time.isoformat() if start_time else None,
             'enddate': end_time.isoformat() if end_time else None
         }
-        return self._v2_request(HourlyLicenseUsages, '/accounts/{}/licensemodules/usages'.format(account_id), params)
+        return self._v2_request(HourlyLicenseUsages, '/accounts/{0}/licensemodules/usages'.format(account_id), params)
 
     def get_license_usage_5min(self, account_id, license_module=None, start_time=None, end_time=None):
         """
@@ -469,4 +469,4 @@ class AppDynamicsClient(object):
             'startdate': start_time.isoformat() if start_time else None,
             'enddate': end_time.isoformat() if end_time else None
         }
-        return self._v2_request(LicenseUsages, '/accounts/{}/licensemodules/usages'.format(account_id), params)
+        return self._v2_request(LicenseUsages, '/accounts/{0}/licensemodules/usages'.format(account_id), params)
