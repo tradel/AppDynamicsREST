@@ -19,6 +19,20 @@ class ApplicationApiTest(unittest.TestCase):
     def setUp(self):
         self.c = appd.request.AppDynamicsClient(creds.url, creds.user, creds.password, creds.account)
 
+    def assertIn(self, test_value, expected_set):
+        """
+        Included or compatibility with Python 2.6
+        """
+        msg = "%s did not occur in %s" % (test_value, expected_set)
+        self.assert_(test_value in expected_set, msg)
+
+    def assertNotIn(self, test_value, expected_set):
+        """
+        Included or compatibility with Python 2.6
+        """
+        msg = "%s was found in %s" % (test_value, expected_set)
+        self.assert_(test_value not in expected_set, msg)
+
 
 if __name__ == '__main__':
     from test_v1_applications import *
