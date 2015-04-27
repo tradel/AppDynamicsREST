@@ -14,7 +14,7 @@ import creds.oa as creds
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 
 # Set up API clientgit
 c = AppDynamicsClient(creds.url, creds.user, creds.password, creds.account)
