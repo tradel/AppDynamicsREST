@@ -5,7 +5,7 @@ tmp/
 MANIFEST
 .DS_Store
 *.egg-info
-.idea
+.idea/
 *.iml
 temp.*
 .eggs/
