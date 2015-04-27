@@ -1,9 +1,4 @@
 requests
 argparse
 six
-scipy
-pandas
-pylab
 tzlocal
-jinja2
-mysql-python
