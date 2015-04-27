@@ -1,3 +1,8 @@
 requests
 argparse
 six
+pandas
+pylab
+tzlocal
+jinja2
+MySQLdb

@@ -7,8 +7,12 @@ from __future__ import print_function
 import sys
 import requests
 
+from appd.model.account import *
 from appd.model.application import *
 from appd.model.config_variable import *
+from appd.model.license_module import *
+from appd.model.hourly_license_usage import *
+from appd.model.license_usage import *
 from appd.model.tier import *
 from appd.model.metric_treenode import *
 from appd.model.business_transaction import *
@@ -90,7 +94,6 @@ class AppDynamicsClient(object):
             self._base_url = 'http://' + self._base_url
         while self._base_url.endswith('/'):
             self._base_url = self._base_url[:-1]
-        self._base_url += '/controller/rest'
 
     def __make_auth(self):
         self._auth = (self._username + '@' + self._account, self._password)
@@ -157,7 +160,7 @@ class AppDynamicsClient(object):
         app_id = app_id if isinstance(app_id, int) else self._app_id
         if not app_id:
             raise ValueError('application id is required')
-        path = '/applications/%s' % app_id + (path or '')
+        path = '/controller/rest/applications/%s' % app_id + (path or '')
         return path
 
     def get_metric_tree(self, app_id=None, metric_path=None, recurse=False):
@@ -192,7 +195,7 @@ class AppDynamicsClient(object):
     # Top-level requests
 
     def _top_request(self, cls, path):
-        return cls.from_json(self.request(path))
+        return cls.from_json(self.request('/controller/rest' + path))
 
     def get_config(self):
         """
@@ -415,3 +418,55 @@ class AppDynamicsClient(object):
 
         return self._app_request(PolicyViolations, '/problems/healthrule-violations', app_id, params)
 
+    def _v2_request(self, cls, path, params=None):
+        return cls.from_json(self.request('/api' + path, params))
+
+    def get_my_account(self):
+        """
+        :rtype: Account
+        """
+        return self._v2_request(Account, '/accounts/myaccount')
+
+    def get_account(self, account_id):
+        """
+        :rtype: Account
+        """
+        return self._v2_request(Account, '/accounts/{}'.format(account_id))
+
+    def get_license_modules(self, account_id):
+        """
+        :rtype: LicenseModules
+        """
+        return self._v2_request(LicenseModules, '/accounts/{}/licensemodules'.format(account_id))
+
+    def get_license_usage(self, account_id, license_module=None, start_time=None, end_time=None):
+        """
+        :param int account_id:
+        :param str license_module:
+        :param datetime.datetime start_time:
+        :param datetime.datetime end_time:
+        :rtype: HourlyLicenseUsages
+        """
+        params = {
+            'licensemodule': license_module,
+            'showfiveminutesresolution': 'False',
+            'startdate': start_time.isoformat() if start_time else None,
+            'enddate': end_time.isoformat() if end_time else None
+        }
+        return self._v2_request(HourlyLicenseUsages, '/accounts/{}/licensemodules/usages'.format(account_id), params)
+
+    def get_license_usage_5min(self, account_id, license_module=None, start_time=None, end_time=None):
+        """
+        :param int account_id:
+        :param str license_module:
+        :param datetime.datetime start_time:
+        :param datetime.datetime end_time:
+        :rtype: LicenseUsages
+        """
+        params = {
+            'licensemodule': license_module,
+            'showfiveminutesresolution': 'True',
+            'startdate': start_time.isoformat() if start_time else None,
+            'enddate': end_time.isoformat() if end_time else None
+        }
+        return self._v2_request(LicenseUsages, '/accounts/{}/licensemodules/usages'.format(account_id), params)
