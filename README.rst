@@ -21,7 +21,7 @@ AppDynamicsREST is a library that provides a clean Python interface to the
 REST API of an AppDynamics controller.
 
 AppDynamicsREST is developed using Python 2.7.6 on Mac OSX. It is known to
-work on most Linux distributions and on Windows with Python 2.6, 2.7,
+work on most Linux distributions and on Windows, with your choice of Python 2.6, 2.7,
 3.3, or 3.4.
 
 
