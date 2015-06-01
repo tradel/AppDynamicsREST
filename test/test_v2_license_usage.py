@@ -8,7 +8,7 @@ Unit tests for AppDynamics REST API
 import unittest
 from .test import ApplicationApiTest
 from datetime import datetime, timedelta
-import creds.ec2_root as creds
+import creds.demo2 as creds
 import appd
 import tzlocal
 
@@ -33,8 +33,8 @@ class V2_LicenseUsageTest(ApplicationApiTest):
             self.assertEqual(x.license_module, 'java')
             self.assertEqual(x.account_id, 2)
             self.assertEqual(x.sample_count, 12)
-            self.assertEqual(x.avg_units_provisioned, 5)
-            self.assertEqual(x.avg_units_allowed, 5)
+            self.assertEqual(x.avg_units_provisioned, 1999)
+            self.assertEqual(x.avg_units_allowed, 1999)
         self.assertEqual(len(usage.usages), 24, 'License usage should return 24 data points')
 
     def test_license_usage_java_5min(self):
@@ -42,6 +42,6 @@ class V2_LicenseUsageTest(ApplicationApiTest):
         for x in usage.usages:
             self.assertEqual(x.license_module, 'java')
             self.assertEqual(x.account_id, 2)
-            self.assertEqual(x.units_allowed, 5)
-            self.assertEqual(x.units_provisioned, 5)
+            self.assertEqual(x.units_allowed, 1999)
+            self.assertEqual(x.units_provisioned, 1999)
         self.assertEqual(len(usage.usages), 12, 'License usage should return 12 data points')

@@ -7,7 +7,7 @@ Unit tests for AppDynamics REST API
 
 import unittest
 import appd
-import creds.ec2 as creds
+import creds.demo2 as creds
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
