@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, timedelta
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict
 
 import pygal
 import tzlocal
@@ -27,28 +27,22 @@ end_dt = datetime.now(mytz).replace(hour=0, minute=0, second=0, microsecond=0)
 start_dt = end_dt - timedelta(days)
 
 # Get license usage for my account
-usage = c.get_license_usage(my_acct.id, None, start_dt, end_dt)
+usage = c.get_license_usage(my_acct.id, 'java', start_dt, end_dt)
 
 
 def daterange(start_dt, end_dt):
     for n in range(int((end_dt - start_dt).days)):
         yield start_dt + timedelta(days=n)
 
-# Get the list of all licensed products:
-products = set(x.license_module for x in usage.usages)
-products = [x for x in products if 'eum' not in x and 'analytics' not in x]
 
-usage_by_product = defaultdict(OrderedDict)
-for product in products:
-    for day in daterange(start_dt, end_dt):
-        units = [x.max_units_used for x in usage.usages if
-                 x.created_on.date() == day.date() and x.license_module == product]
-        usage_by_product[product][day] = max(units)
+usage_by_day = OrderedDict()
+for day in daterange(start_dt, end_dt):
+    units = [x.max_units_used for x in usage.usages if x.created_on.date() == day.date()]
+    usage_by_day[day] = max(units)
 
 # Make a simple graph and display it
 chart = pygal.StackedBar(x_label_rotation=45, width=1000)
-chart.title = 'License Usage By Product - ' + c.base_url
+chart.title = 'Java License Usage - ' + c.base_url
 chart.x_labels = [str(x.date()) for x in daterange(start_dt, end_dt)]
-for product in products:
-    chart.add(product, usage_by_product[product].values())
-chart.render_to_file('all_usage.svg')
+chart.add('java', usage_by_day.values())
+chart.render_to_file('java_usage.svg')
