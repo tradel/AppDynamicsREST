@@ -6,7 +6,7 @@ Unit tests for AppDynamics REST API
 """
 
 import unittest
-from .test import ApplicationApiTest
+from test import ApplicationApiTest
 
 
 class V2_LicenseModuleTest(ApplicationApiTest):

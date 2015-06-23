@@ -5,7 +5,7 @@
 Unit tests for AppDynamics REST API
 """
 
-from .test import ApplicationApiTest
+from test import ApplicationApiTest
 
 
 class V2_AccountTest(ApplicationApiTest):
