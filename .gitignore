@@ -15,4 +15,6 @@ docs/_build/
 htmlcov/
 *.old
 creds/
+*.svg
+bin/
 
