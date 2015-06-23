@@ -7,6 +7,8 @@ from __future__ import print_function
 import sys
 import requests
 
+from datetime import datetime
+
 from appd.model.account import *
 from appd.model.application import *
 from appd.model.config_variable import *
@@ -157,7 +159,7 @@ class AppDynamicsClient(object):
         return r.json() if json else r.text
 
     def _app_path(self, app_id, path=None):
-        app_id = app_id if isinstance(app_id, int) else self._app_id
+        app_id = app_id if isinstance(app_id, int) or isinstance(app_id, str) else self._app_id
         if not app_id:
             raise ValueError('application id is required')
         path = '/controller/rest/applications/%s' % app_id + (path or '')
@@ -447,11 +449,16 @@ class AppDynamicsClient(object):
         :param datetime.datetime end_time:
         :rtype: HourlyLicenseUsages
         """
+        if isinstance(start_time, datetime):
+            start_time = start_time.isoformat()
+        if isinstance(end_time, datetime):
+            end_time = end_time.isoformat()
+
         params = {
             'licensemodule': license_module,
             'showfiveminutesresolution': 'False',
-            'startdate': start_time.isoformat() if start_time else None,
-            'enddate': end_time.isoformat() if end_time else None
+            'startdate': start_time,
+            'enddate': end_time
         }
         return self._v2_request(HourlyLicenseUsages, '/accounts/{0}/licensemodules/usages'.format(account_id), params)
 
@@ -470,3 +477,4 @@ class AppDynamicsClient(object):
             'enddate': end_time.isoformat() if end_time else None
         }
         return self._v2_request(LicenseUsages, '/accounts/{0}/licensemodules/usages'.format(account_id), params)
+
