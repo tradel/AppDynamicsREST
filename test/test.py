@@ -11,7 +11,7 @@ import creds.localhost as creds
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
-__version__ = '0.4.3'
+__version__ = '0.4.4'
 
 
 class ApplicationApiTest(unittest.TestCase):
