@@ -2,7 +2,7 @@
 AppDynamics REST API Library
 ============================
 
-Current version: 0.4.4
+Current version: 0.4.5
 Released: 23-Jun-2015
 
 .. image:: https://img.shields.io/travis/tradel/AppDynamicsREST.svg
