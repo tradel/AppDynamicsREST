@@ -15,7 +15,7 @@ deploy:
   provider: pypi
   user: tradel
   password:
-    secure: CSvQj9q0DW5E7/kjqdDAjJb3ReC4fklt4lcOYGaIiE8f8rPQ6HJ9FsL6TtVGMqEsa4DupZB0uk892rQUmKZn08EPSNGKJv3ZSeBpVnl2GXsOn7N7IeD7QNf1dIk/EzSBsqCV9og7mWm3mAbZq5OXsob3SgRgqm4vBsq3/41ArfE=
+    secure: "YUWD7Lsggc6lQoaC0mFWElu8Ea80Ej78mC6kTCdzR6O9Hmk+fh02YR2+nq6I4tMCAMILLjj6vHVaeSp6/Zx4GTe0O9XJxl+afuA6LarU6zN18Y6FOvK+9G8JRelESDice56IGZyYCwLXlSgihZ6tHTYXRfVT04i2dR7O5KM0uOE="
   distributions: sdist bdist_wheel
   on:
     tags: true
