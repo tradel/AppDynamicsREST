@@ -1,16 +1,14 @@
-
 ============================
 AppDynamics REST API Library
 ============================
 
 Current version: 0.4.4
+Released: 23-Jun-2015
 
-Released: 23-Apr-2015
-
-.. image:: https://travis-ci.org/tradel/AppDynamicsREST.svg?branch=master
+.. image:: https://img.shields.io/travis/tradel/AppDynamicsREST.svg
    :target: https://travis-ci.org/tradel/AppDynamicsREST/
 
-.. image:: https://pypip.in/d/AppDynamicsREST/badge.svg
+.. image:: https://img.shields.io/pypi/dm/AppDynamicsREST.svg
    :target: https://pypi.python.org/pypi/AppDynamicsREST/
 
 

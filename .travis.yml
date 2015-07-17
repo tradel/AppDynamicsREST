@@ -1,17 +1,21 @@
 language: python
 python:
-  - '2.6'
-  - '2.7'
-  - '3.3'
-  - '3.4'
+- '2.6'
+- '2.7'
+- '3.3'
+- '3.4'
+
 install:
-  - pip install -r requirements.txt
-  - pip install .
+- pip install -r requirements.txt
+- pip install .
+
 script: nosetests
+
 deploy:
   provider: pypi
   user: tradel
-  password: 4kSU9Ly723M6
-  distributions: "sdist bdist_wheel"
+  password:
+    secure: CSvQj9q0DW5E7/kjqdDAjJb3ReC4fklt4lcOYGaIiE8f8rPQ6HJ9FsL6TtVGMqEsa4DupZB0uk892rQUmKZn08EPSNGKJv3ZSeBpVnl2GXsOn7N7IeD7QNf1dIk/EzSBsqCV9og7mWm3mAbZq5OXsob3SgRgqm4vBsq3/41ArfE=
+  distributions: sdist bdist_wheel
   on:
     tags: true
