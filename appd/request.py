@@ -432,19 +432,21 @@ class AppDynamicsClient(object):
 
     def get_account(self, account_id):
         """
+        :param int account_id: ID of account to retrieve
         :rtype: Account
         """
         return self._v2_request(Account, '/accounts/{0}'.format(account_id))
 
     def get_license_modules(self, account_id):
         """
+        :param int account_id: ID of account to retrieve licenses for
         :rtype: LicenseModules
         """
         return self._v2_request(LicenseModules, '/accounts/{0}/licensemodules'.format(account_id))
 
     def get_license_usage(self, account_id, license_module=None, start_time=None, end_time=None):
         """
-        :param int account_id:
+        :param int account_id: ID of account to retrieve licenses for
         :param str license_module:
         :param datetime.datetime start_time:
         :param datetime.datetime end_time:
@@ -478,4 +480,3 @@ class AppDynamicsClient(object):
             'enddate': end_time.isoformat() if end_time else None
         }
         return self._v2_request(LicenseUsages, '/accounts/{0}/licensemodules/usages'.format(account_id), params)
-
