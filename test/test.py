@@ -40,11 +40,13 @@ class ApplicationApiTest(unittest.TestCase):
 
 if __name__ == '__main__':
     from test_v1_applications import *
+    from test_v1_metric_tree import *
     from test_v2_accounts import *
     from test_v2_license_modules import *
 
     suite = unittest.TestLoader() \
         .loadTestsFromTestCase(V1_ApplicationTest) \
+        .loadTestsFromTestCase(V1_MetricTreeTest) \
         .loadTestsFromTestCase(V2_AccountTest) \
         .loadTestsFromTestCase(V2_LicenseModuleTest)
 
