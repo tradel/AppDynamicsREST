@@ -6,6 +6,7 @@ Unit tests for AppDynamics REST API
 """
 
 import unittest
+import logging
 from unittest.util import safe_repr
 
 import appd
@@ -17,7 +18,9 @@ __version__ = '0.4.5'
 
 
 class ApplicationApiTest(unittest.TestCase):
+
     def setUp(self):
+        logging.basicConfig(level=logging.WARN)
         self.c = appd.request.AppDynamicsClient(creds.url, creds.user, creds.password, creds.account)
 
     def assertIn(self, member, container, msg=None):
