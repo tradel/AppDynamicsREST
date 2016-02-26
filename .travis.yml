@@ -4,18 +4,21 @@ python:
 - '2.7'
 - '3.3'
 - '3.4'
-
 install:
 - pip install -r requirements.txt
 - pip install .
-
 script: nosetests
-
 deploy:
   provider: pypi
   user: tradel
   password:
-    secure: "YUWD7Lsggc6lQoaC0mFWElu8Ea80Ej78mC6kTCdzR6O9Hmk+fh02YR2+nq6I4tMCAMILLjj6vHVaeSp6/Zx4GTe0O9XJxl+afuA6LarU6zN18Y6FOvK+9G8JRelESDice56IGZyYCwLXlSgihZ6tHTYXRfVT04i2dR7O5KM0uOE="
+    secure: YUWD7Lsggc6lQoaC0mFWElu8Ea80Ej78mC6kTCdzR6O9Hmk+fh02YR2+nq6I4tMCAMILLjj6vHVaeSp6/Zx4GTe0O9XJxl+afuA6LarU6zN18Y6FOvK+9G8JRelESDice56IGZyYCwLXlSgihZ6tHTYXRfVT04i2dR7O5KM0uOE=
   distributions: sdist bdist_wheel
   on:
     tags: true
+env:
+  global:
+  - secure: NTYx7INnk4ubO2pjjOQ+D36BDdgzGOXvXakPlRhIuQcT8v3Pac/knpmMeSlzkA50eFV0wyYNuHvoJLy/e32xupb8jVP933zOduuWazC0Jz3eJVo3YCHfZ2sU4JVAMfkfHhdeMl1xq9pcV++25iPhE1vDywcltl6CIFb2Uy+h/QQ=
+  - secure: gr17fnYi0z+CD+H4WhEVONM67JR0nekomNL8F53NU7yQOjHOrvmT5eclA3lA3hn+XJoMMXGYpza3GeNnJlo6/OvvDWj1LshTPWfjQ1peg2IbOLq+H+Kb6Kh+BL1c4n4HB2W87JtHbZl/eJ88Ugnfl+nRSJh7UQGVXZPgfJq+s1o=
+  - secure: WIBNhjIuazrn8zAOe1tdD/o1Dsd5HDUaOoQsooAG0CwZeaK9+iB7r7s8UCZDIqYjCnueMRoYeD9m1Ji/Fb2XxWzKNJ1gXZ1bcobqNoeYFvldImiIubJ2rm01Q6hSgAxXXlT4KzHDuiTUmwj9iVRGRZtOXlDPCY1mPl9/OZLXtds=
+  - secure: M6gahVjtyRFew+A4BDN74nukEMsjEaWonNv2D31emf2SnPjFY5tiJS+EImYclDVSB8+VuZZYUnjZVnx9AIh9j4GacG5i2c1ga2NI0rix6xSRXNANCU20ppYdXw9lmyWXUSNJJ72eD7KyDbM4LNBV6CdzkWEKMD+aqdfFxMaV3z0=

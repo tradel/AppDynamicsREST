@@ -8,9 +8,9 @@ Unit tests for AppDynamics REST API
 import unittest
 import logging
 from unittest.util import safe_repr
+from os import environ
 
 import appd
-import creds.demo2 as creds
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
@@ -21,7 +21,13 @@ class ApplicationApiTest(unittest.TestCase):
 
     def setUp(self):
         logging.basicConfig(level=logging.WARN)
-        self.c = appd.request.AppDynamicsClient(creds.url, creds.user, creds.password, creds.account)
+
+        url = environ.get('APPD_URL') or 'http://localhost:8090'
+        user = environ.get('APPD_USERNAME') or 'user1'
+        password = environ.get('APPD_PASSWORD') or 'welcome'
+        account = environ.get('APPD_ACCOUNT') or 'customer1'
+
+        self.c = appd.request.AppDynamicsClient(url, user, password, account, debug=True)
 
     def assertIn(self, member, container, msg=None):
         """Just like self.assertTrue(a in b), but with a nicer default message."""

@@ -8,7 +8,6 @@ Unit tests for AppDynamics REST API
 import unittest
 from test import ApplicationApiTest
 from datetime import datetime, timedelta
-import creds.demo2 as creds
 import appd
 import tzlocal
 
@@ -23,9 +22,6 @@ def midnight():
 
 
 class V2_LicenseUsageTest(ApplicationApiTest):
-
-    def setUp(self):
-        self.c = appd.request.AppDynamicsClient(creds.url, creds.user, creds.password, creds.account)
 
     def test_license_usage_java(self):
         usage = self.c.get_license_usage(2, 'java', midnight() - timedelta(hours=24), midnight() - timedelta(hours=1))
