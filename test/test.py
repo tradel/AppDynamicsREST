@@ -10,7 +10,7 @@ import logging
 from unittest.util import safe_repr
 
 import appd
-import creds.localhost as creds
+import creds.demo2 as creds
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
