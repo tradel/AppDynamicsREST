@@ -3,7 +3,7 @@ AppDynamics REST API Library
 ============================
 
 Current version: 0.4.6
-Released: 23-Jun-2015
+Released: 26-Feb-2016
 
 .. image:: https://img.shields.io/travis/tradel/AppDynamicsREST.svg
    :target: https://travis-ci.org/tradel/AppDynamicsREST/
@@ -18,7 +18,7 @@ Introduction
 AppDynamicsREST is a library that provides a clean Python interface to the
 REST API of an AppDynamics controller.
 
-AppDynamicsREST is developed using Python 2.7.6 on Mac OSX. It is known to
+AppDynamicsREST is developed using Python 2.7.11 on Mac OSX. It is known to
 work on most Linux distributions and on Windows, with your choice of Python 2.6, 2.7,
 3.3, or 3.4.
 
