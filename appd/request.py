@@ -92,7 +92,7 @@ class AppDynamicsClient(object):
     @base_url.setter
     def base_url(self, new_url):
         self._base_url = new_url
-        if not '://' in self._base_url:
+        if '://' not in self._base_url:
             self._base_url = 'http://' + self._base_url
         while self._base_url.endswith('/'):
             self._base_url = self._base_url[:-1]
@@ -186,7 +186,6 @@ class AppDynamicsClient(object):
         params = {}
         if parent:
             params['metric-path'] = parent.path
-        path = '/applications/%d/metrics' % app_id
         nodes = self._app_request(MetricTreeNodes, '/metrics', app_id, params)
         for node in nodes:
             node.parent = parent
@@ -287,7 +286,7 @@ class AppDynamicsClient(object):
         :returns: parameters to be sent to controller
         :rtype: dict
         """
-        if time_range_type and not time_range_type in self.TIME_RANGE_TYPES:
+        if time_range_type and time_range_type not in self.TIME_RANGE_TYPES:
             raise ValueError('time_range_time must be one of: ' + ', '.join(self.TIME_RANGE_TYPES))
 
         elif time_range_type == 'BEFORE_NOW' and not duration_in_mins:
