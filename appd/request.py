@@ -6,6 +6,7 @@ from __future__ import print_function
 
 import sys
 import requests
+import logging
 
 from datetime import datetime
 
@@ -22,6 +23,10 @@ from appd.model.policy_violation import *
 from appd.model.snapshot import *
 from appd.model.metric_data import *
 from appd.model.node import *
+
+__all__ = ['AppDynamicsClient']
+
+log = logging.getLogger(__name__)
 
 
 class AppDynamicsClient(object):
@@ -148,12 +153,11 @@ class AppDynamicsClient(object):
                 del params[k]
 
         if self.debug:
-            print('Retrieving ' + url, self._auth, params)
+            log.debug('Retrieving %s %s %s', url, self._auth, params)
 
         r = requests.request(method, url, auth=self._auth, params=params)
 
         if r.status_code != requests.codes.ok:
-            print(url, file=sys.stderr)
             r.raise_for_status()
 
         return r.json() if json else r.text
