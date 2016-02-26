@@ -27,6 +27,10 @@ class MetricTreeNode(JsonObject):
             n = n.parent
         return '|'.join(stack)
 
+    @property
+    def children(self):
+        return self._children
+
 
 class MetricTreeNodes(JsonList):
 
@@ -56,7 +60,7 @@ class MetricTreeNodes(JsonList):
 
         :param str name: Variable name to find.
         :return: Metric tree node matching the name.
-        :rtype: appd.model.MetricTreeNode
+        :rtype: MetricTreeNode
         """
         found = [x for x in self.data if x.name == name]
         try:
