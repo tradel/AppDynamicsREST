@@ -14,7 +14,7 @@ import appd
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
-__version__ = '0.4.6'
+__version__ = '0.4.7'
 
 
 class ApplicationApiTest(unittest.TestCase):
