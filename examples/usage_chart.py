@@ -12,7 +12,7 @@ import creds.demo2 as creds
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
-__version__ = '0.4.8'
+__version__ = '0.4.9'
 
 # Set up API client
 c = AppDynamicsClient(creds.url, creds.user, creds.password, creds.account)
