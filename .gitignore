@@ -17,4 +17,5 @@ htmlcov/
 creds/
 *.svg
 bin/
+.python-version
 
