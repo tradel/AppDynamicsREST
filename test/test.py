@@ -7,7 +7,6 @@ Unit tests for AppDynamics REST API
 
 import unittest
 import logging
-from unittest.util import safe_repr
 from os import environ
 
 import appd
@@ -32,15 +31,15 @@ class ApplicationApiTest(unittest.TestCase):
     def assertIn(self, member, container, msg=None):
         """Just like self.assertTrue(a in b), but with a nicer default message."""
         if member not in container:
-            standard_msg = '%s not found in %s' % (safe_repr(member),
-                                                   safe_repr(container))
+            standard_msg = '%s not found in %s' % (repr(member),
+                                                   repr(container))
             self.fail(self._formatMessage(msg, standard_msg))
 
     def assertNotIn(self, member, container, msg=None):
         """Just like self.assertTrue(a not in b), but with a nicer default message."""
         if member in container:
-            standard_msg = '%s unexpectedly found in %s' % (safe_repr(member),
-                                                            safe_repr(container))
+            standard_msg = '%s unexpectedly found in %s' % (repr(member),
+                                                            repr(container))
             self.fail(self._formatMessage(msg, standard_msg))
 
 
