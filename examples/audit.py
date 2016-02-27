@@ -18,7 +18,7 @@ import MySQLdb
 
 __author__ = 'Todd Radel'
 __copyright__ = 'Copyright (c) 2013-2015 AppDynamics Inc.'
-__version__ = '0.4.7'
+__version__ = '0.4.8'
 
 
 def parse_argv():
