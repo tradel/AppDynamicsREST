@@ -5,16 +5,15 @@
 Unit tests for AppDynamics REST API
 """
 
-import unittest
-from test import ApplicationApiTest
-from datetime import datetime, timedelta
-import appd
 import tzlocal
+from datetime import datetime, timedelta
+
+from test import ApplicationApiTest
 
 
 def now():
-    mytz = tzlocal.get_localzone()
-    return datetime.now(mytz).replace(microsecond=0)
+    my_tz = tzlocal.get_localzone()
+    return datetime.now(my_tz).replace(microsecond=0)
 
 
 def midnight():
@@ -22,7 +21,6 @@ def midnight():
 
 
 class V2_LicenseUsageTest(ApplicationApiTest):
-
     def test_license_usage_java(self):
         usage = self.c.get_license_usage(2, 'java', midnight() - timedelta(hours=24), midnight() - timedelta(hours=1))
         for x in usage.usages:
