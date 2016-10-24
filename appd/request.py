@@ -80,7 +80,7 @@ class AppDynamicsClient(object):
         :type debug: bool.
         """
 
-        self._username, self._password, self._account, self._app_id = '', '', '', None
+        self._username, self._password, self._account, self._app_id, self._session = '', '', '', None, None
         self._base_url = ''
         (self.base_url, self.username, self.password, self.account, self.debug) = (base_url, username, password,
                                                                                    account, debug)
@@ -135,6 +135,12 @@ class AppDynamicsClient(object):
     def app_id(self, new_app_id):
         self._app_id = new_app_id
 
+    def _get_session(self):
+        if not self._session:
+            from requests.sessions import Session
+            self._session = Session()
+        return self._session
+
     def request(self, path, params=None, method='GET', json=True):
         if not path.startswith('/'):
             path = '/' + path
@@ -150,7 +156,7 @@ class AppDynamicsClient(object):
         if self.debug:
             print('Retrieving ' + url, self._auth, params)
 
-        r = requests.request(method, url, auth=self._auth, params=params)
+        r = self._get_session().request(method, url, auth=self._auth, params=params)
 
         if r.status_code != requests.codes.ok:
             print(url, file=sys.stderr)
